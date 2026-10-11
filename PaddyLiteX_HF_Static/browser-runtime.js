@@ -9,7 +9,7 @@
   let sequence = 0;
   let busy = false;
   const pending = new Map();
-  const manifest = () => manifestPromise ??= nativeFetch(new URL('browser-models.json', root))
+  const manifest = () => manifestPromise ??= nativeFetch(new URL('browser-models.json', root), { cache: 'no-store' })
     .then(response => { if (!response.ok) throw new Error('Browser model manifest is missing.'); return response.json(); });
   const reply = (data, status = 200) => new Response(JSON.stringify(data), {
     status, headers: { 'Content-Type': 'application/json' },

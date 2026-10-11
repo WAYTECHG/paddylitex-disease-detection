@@ -37,10 +37,12 @@
         "Rice__NeckBlast"
       ],
       "files": {
-        "320": "models/yolov8n_densenet121_320.onnx",
-        "512": "models/yolov8n_densenet121_512.onnx",
-        "640": "models/yolov8n_densenet121_640.onnx"
-      }
+        "320": "models/yolov8n_densenet121_defcf4ff895e_320.onnx",
+        "512": "models/yolov8n_densenet121_defcf4ff895e_512.onnx",
+        "640": "models/yolov8n_densenet121_defcf4ff895e_640.onnx"
+      },
+      "checkpoint_sha256": "defcf4ff895e72763baa71005139515c84b52ead8f1b4819cd793fd94154ea42",
+      "evaluation_snapshot": "c2f1-results-20261012-batch2"
     },
     {
       "id": "yolov8n_denselitex_sppf_c2psa",
@@ -57,10 +59,12 @@
         "Rice__NeckBlast"
       ],
       "files": {
-        "320": "models/yolov8n_denselitex_sppf_c2psa_320.onnx",
-        "512": "models/yolov8n_denselitex_sppf_c2psa_512.onnx",
-        "640": "models/yolov8n_denselitex_sppf_c2psa_640.onnx"
-      }
+        "320": "models/yolov8n_denselitex_sppf_c2psa_049cd63cc4ff_320.onnx",
+        "512": "models/yolov8n_denselitex_sppf_c2psa_049cd63cc4ff_512.onnx",
+        "640": "models/yolov8n_denselitex_sppf_c2psa_049cd63cc4ff_640.onnx"
+      },
+      "checkpoint_sha256": "049cd63cc4ffa06c15d6e728f581bffb2b4c24f97cf0917642102aae79cc2aae",
+      "evaluation_snapshot": "c2f1-results-20261012-batch2"
     }
   ]
 }
