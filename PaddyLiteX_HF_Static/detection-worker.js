@@ -17,7 +17,12 @@ self.onmessage = async ({ data }) => {
   running = true;
   const { requestId, model, size, input, transform, confidence } = data;
   try {
-    const path = new URL(model.files[String(size)], self.location.href).href;
+    // Keep model versions in the URL, not the filename.
+    const modelUrl = new URL(model.files[String(size)], self.location.href);
+    if (model.checkpoint_sha256) {
+      modelUrl.searchParams.set('v', model.checkpoint_sha256.slice(0, 12));
+    }
+    const path = modelUrl.href;
     if (!currentSession || currentPath !== path) {
       self.postMessage({ requestId, stage: 'Downloading/loading ' + model.label + ' on your device…' });
       if (currentSession) await currentSession.release();

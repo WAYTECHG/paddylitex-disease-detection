@@ -37,12 +37,17 @@
         "Rice__NeckBlast"
       ],
       "files": {
-        "320": "models/yolov8n_densenet121_defcf4ff895e_320.onnx",
-        "512": "models/yolov8n_densenet121_defcf4ff895e_512.onnx",
-        "640": "models/yolov8n_densenet121_defcf4ff895e_640.onnx"
+        "320": "models/yolov8n_densenet121_320.onnx",
+        "512": "models/yolov8n_densenet121_512.onnx",
+        "640": "models/yolov8n_densenet121_640.onnx"
       },
       "checkpoint_sha256": "defcf4ff895e72763baa71005139515c84b52ead8f1b4819cd793fd94154ea42",
-      "evaluation_snapshot": "c2f1-results-20261012-batch2"
+      "evaluation_snapshot": "c2f1-results-20261012-batch2",
+      "onnx_sha256": {
+        "320": "9408e8a513d2fd1f7bbeeda36101a0182c74ee54f5ea7eb63087ab0e36456356",
+        "512": "17a2d6a492747dd75033e60803ac7c703f7d9029e50320ef0839a1151ae256a0",
+        "640": "eb48addb5a3109e2029a001998075bedc8cd05b6783d37be648f9b8506e613a0"
+      }
     },
     {
       "id": "yolov8n_denselitex_sppf_c2psa",
@@ -59,12 +64,18 @@
         "Rice__NeckBlast"
       ],
       "files": {
-        "320": "models/yolov8n_denselitex_sppf_c2psa_049cd63cc4ff_320.onnx",
-        "512": "models/yolov8n_denselitex_sppf_c2psa_049cd63cc4ff_512.onnx",
-        "640": "models/yolov8n_denselitex_sppf_c2psa_049cd63cc4ff_640.onnx"
+        "320": "models/yolov8n_denselitex_sppf_c2psa_320.onnx",
+        "512": "models/yolov8n_denselitex_sppf_c2psa_512.onnx",
+        "640": "models/yolov8n_denselitex_sppf_c2psa_640.onnx"
       },
       "checkpoint_sha256": "049cd63cc4ffa06c15d6e728f581bffb2b4c24f97cf0917642102aae79cc2aae",
-      "evaluation_snapshot": "c2f1-results-20261012-batch2"
+      "evaluation_snapshot": "c2f1-results-20261012-batch2",
+      "onnx_sha256": {
+        "320": "9278ce196a3f37cc2cbc106dc4be986758972c9cd8fefdde335bcf76d74c62e8",
+        "512": "4ef8bba2c9a07f4abda4b720dc2c91b59ffd3c455f1ee14ef7377dda3760a55a",
+        "640": "1f8e6be3aa7fb319ac251c364887eb4963bb7aa005ced158ad67ec6064b7539f"
+      }
     }
-  ]
+  ],
+  "model_file_layout": "clean-size-names-v1"
 }
