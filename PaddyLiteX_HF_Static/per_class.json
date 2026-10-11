@@ -2,11 +2,86 @@
   "schema_version": 1,
   "unit": "percent",
   "context": {
-    "source": "Class-level test-set results from my three paddy disease detection experiments",
+    "source": "Class-level test-set results from my paddy disease detection experiments.",
     "split": "test",
     "images": 803,
     "objects": 2466,
-    "precision_note": "Transcribed from the displayed validation tables. Values use the precision shown in the screenshots; full-precision exports may differ slightly."
+    "precision_note": "Transcribed from the displayed validation tables. Values use the precision shown in the screenshots; full-precision exports may differ slightly.",
+    "model_evaluations": {
+      "yolov8n_densenet121": {
+        "c2f_repeats": 1,
+        "split": "test",
+        "run_name": "yolov8n_densenet121_fs",
+        "source_screenshot": "image(20261011-154943).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
+        "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n_denselitex_sppf_c2psa": {
+        "c2f_repeats": 1,
+        "split": "test",
+        "run_name": "yolov8n_denselitex_sppf_c2psa_fs",
+        "source_screenshot": "image(20261011-155020).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
+        "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n_denselitex": {
+        "c2f_repeats": 1,
+        "split": "test",
+        "run_name": "yolov8n_denselitex_fs",
+        "source_screenshot": "image(20261011-155244).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
+        "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n_denselitex_sppf": {
+        "c2f_repeats": 1,
+        "split": "test",
+        "run_name": "yolov8n_denselitex_sppf_fs",
+        "source_screenshot": "image(20261011-155432).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
+        "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n_denselitex_c2psa": {
+        "c2f_repeats": 1,
+        "split": "test",
+        "run_name": "yolov8n_denselitex_c2psa_fs",
+        "source_screenshot": "image(20261011-155504).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
+        "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n_densenet121_sppf": {
+        "c2f_repeats": 1,
+        "split": "test",
+        "run_name": "yolov8n_densenet121_sppf_fs",
+        "source_screenshot": "image(20261011-155804).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
+        "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n_densenet121_c2psa": {
+        "c2f_repeats": 1,
+        "split": "test",
+        "run_name": "yolov8n_densenet121_c2psa_fs",
+        "source_screenshot": "image(20261011-155818).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
+        "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n_densenet121_sppf_c2psa": {
+        "c2f_repeats": 1,
+        "split": "test",
+        "run_name": "yolov8n_densenet121_sppf_c2psa_fs",
+        "source_screenshot": "image(20261011-160157).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
+        "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      }
+    },
+    "last_results_update": "c2f1-results-20261012-batch2"
   },
   "classes": [
     {
@@ -22,28 +97,52 @@
           "map5095": 71.4
         },
         "yolov8n_densenet121": {
-          "precision": 96.4,
-          "recall": 90.1,
-          "map50": 92.1,
-          "map5095": 77.4
+          "precision": 97.2,
+          "recall": 90.0,
+          "map50": 92.6,
+          "map5095": 74.8
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 95.4,
-          "recall": 91.4,
-          "map50": 93.4,
-          "map5095": 77.5
+          "precision": 95.7,
+          "recall": 90.4,
+          "map50": 94.3,
+          "map5095": 72.9
         },
         "yolov8n_densenet121_c2psa": {
-          "precision": 97.4,
-          "recall": 89.5,
-          "map50": 93.4,
-          "map5095": 79.2
+          "precision": 99.0,
+          "recall": 90.3,
+          "map50": 93.6,
+          "map5095": 79.4
         },
         "yolov8n_densenet121_sppf_c2psa": {
-          "precision": 95.5,
-          "recall": 91.4,
-          "map50": 93.8,
-          "map5095": 78.1
+          "precision": 97.5,
+          "recall": 92.8,
+          "map50": 93.1,
+          "map5095": 79.0
+        },
+        "yolov8n_denselitex": {
+          "precision": 90.6,
+          "recall": 88.0,
+          "map50": 91.8,
+          "map5095": 65.2
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 94.5,
+          "recall": 90.0,
+          "map50": 93.6,
+          "map5095": 70.0
+        },
+        "yolov8n_denselitex_c2psa": {
+          "precision": 94.0,
+          "recall": 90.0,
+          "map50": 93.5,
+          "map5095": 68.5
+        },
+        "yolov8n_densenet121_sppf": {
+          "precision": 96.8,
+          "recall": 90.0,
+          "map50": 92.9,
+          "map5095": 78.0
         }
       }
     },
@@ -60,28 +159,52 @@
           "map5095": 57.7
         },
         "yolov8n_densenet121": {
-          "precision": 95.4,
-          "recall": 85.0,
-          "map50": 95.1,
-          "map5095": 62.8
+          "precision": 96.4,
+          "recall": 86.5,
+          "map50": 94.6,
+          "map5095": 62.9
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 89.2,
-          "recall": 86.5,
+          "precision": 90.6,
+          "recall": 85.3,
           "map50": 93.1,
-          "map5095": 59.5
+          "map5095": 59.9
         },
         "yolov8n_densenet121_c2psa": {
-          "precision": 94.1,
-          "recall": 86.0,
-          "map50": 94.1,
-          "map5095": 61.9
+          "precision": 96.9,
+          "recall": 86.6,
+          "map50": 95.6,
+          "map5095": 65.7
         },
         "yolov8n_densenet121_sppf_c2psa": {
-          "precision": 94.8,
-          "recall": 83.9,
-          "map50": 94.0,
-          "map5095": 62.8
+          "precision": 93.7,
+          "recall": 90.7,
+          "map50": 95.3,
+          "map5095": 66.4
+        },
+        "yolov8n_denselitex": {
+          "precision": 90.5,
+          "recall": 76.7,
+          "map50": 88.8,
+          "map5095": 50.7
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 91.5,
+          "recall": 78.5,
+          "map50": 91.0,
+          "map5095": 55.9
+        },
+        "yolov8n_denselitex_c2psa": {
+          "precision": 92.1,
+          "recall": 79.9,
+          "map50": 91.2,
+          "map5095": 54.7
+        },
+        "yolov8n_densenet121_sppf": {
+          "precision": 93.4,
+          "recall": 89.1,
+          "map50": 94.8,
+          "map5095": 64.9
         }
       }
     },
@@ -98,28 +221,52 @@
           "map5095": 33.6
         },
         "yolov8n_densenet121": {
-          "precision": 62.9,
-          "recall": 42.0,
-          "map50": 47.9,
-          "map5095": 32.6
+          "precision": 68.0,
+          "recall": 44.9,
+          "map50": 49.4,
+          "map5095": 31.7
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 73.2,
-          "recall": 43.5,
-          "map50": 49.1,
-          "map5095": 33.0
+          "precision": 66.9,
+          "recall": 42.0,
+          "map50": 50.0,
+          "map5095": 32.0
         },
         "yolov8n_densenet121_c2psa": {
-          "precision": 61.7,
-          "recall": 43.5,
-          "map50": 48.1,
-          "map5095": 31.6
+          "precision": 70.6,
+          "recall": 49.3,
+          "map50": 51.1,
+          "map5095": 32.5
         },
         "yolov8n_densenet121_sppf_c2psa": {
-          "precision": 72.9,
+          "precision": 71.4,
+          "recall": 47.1,
+          "map50": 51.4,
+          "map5095": 35.5
+        },
+        "yolov8n_denselitex": {
+          "precision": 65.6,
           "recall": 40.6,
-          "map50": 47.0,
-          "map5095": 30.7
+          "map50": 51.5,
+          "map5095": 31.4
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 70.1,
+          "recall": 40.7,
+          "map50": 48.6,
+          "map5095": 32.8
+        },
+        "yolov8n_denselitex_c2psa": {
+          "precision": 61.1,
+          "recall": 40.6,
+          "map50": 47.9,
+          "map5095": 30.6
+        },
+        "yolov8n_densenet121_sppf": {
+          "precision": 68.6,
+          "recall": 43.5,
+          "map50": 51.2,
+          "map5095": 31.0
         }
       }
     },
@@ -136,28 +283,52 @@
           "map5095": 54.3
         },
         "yolov8n_densenet121": {
-          "precision": 89.7,
+          "precision": 85.0,
           "recall": 80.9,
-          "map50": 81.0,
-          "map5095": 53.5
+          "map50": 82.2,
+          "map5095": 52.7
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 83.1,
-          "recall": 82.0,
-          "map50": 81.5,
-          "map5095": 55.4
+          "precision": 84.9,
+          "recall": 79.8,
+          "map50": 79.6,
+          "map5095": 52.2
         },
         "yolov8n_densenet121_c2psa": {
-          "precision": 87.4,
-          "recall": 78.2,
-          "map50": 79.5,
-          "map5095": 53.8
+          "precision": 88.5,
+          "recall": 78.7,
+          "map50": 84.1,
+          "map5095": 55.1
         },
         "yolov8n_densenet121_sppf_c2psa": {
+          "precision": 86.7,
+          "recall": 80.9,
+          "map50": 81.6,
+          "map5095": 53.0
+        },
+        "yolov8n_denselitex": {
+          "precision": 79.3,
+          "recall": 77.5,
+          "map50": 77.8,
+          "map5095": 48.9
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 83.2,
+          "recall": 76.4,
+          "map50": 79.3,
+          "map5095": 50.7
+        },
+        "yolov8n_denselitex_c2psa": {
+          "precision": 77.1,
+          "recall": 78.7,
+          "map50": 80.1,
+          "map5095": 51.9
+        },
+        "yolov8n_densenet121_sppf": {
           "precision": 85.6,
-          "recall": 82.0,
-          "map50": 83.0,
-          "map5095": 57.1
+          "recall": 80.4,
+          "map50": 81.0,
+          "map5095": 52.2
         }
       }
     },
@@ -174,28 +345,52 @@
           "map5095": 39.5
         },
         "yolov8n_densenet121": {
-          "precision": 69.5,
-          "recall": 60.0,
-          "map50": 64.5,
-          "map5095": 41.6
+          "precision": 68.4,
+          "recall": 51.4,
+          "map50": 63.9,
+          "map5095": 40.9
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 69.4,
-          "recall": 68.1,
-          "map50": 68.1,
-          "map5095": 46.5
-        },
-        "yolov8n_densenet121_c2psa": {
-          "precision": 72.3,
-          "recall": 61.4,
-          "map50": 67.3,
+          "precision": 71.7,
+          "recall": 57.8,
+          "map50": 67.0,
           "map5095": 41.9
         },
+        "yolov8n_densenet121_c2psa": {
+          "precision": 78.8,
+          "recall": 61.4,
+          "map50": 69.2,
+          "map5095": 43.0
+        },
         "yolov8n_densenet121_sppf_c2psa": {
+          "precision": 64.9,
+          "recall": 63.4,
+          "map50": 66.2,
+          "map5095": 41.3
+        },
+        "yolov8n_denselitex": {
+          "precision": 75.1,
+          "recall": 50.0,
+          "map50": 62.0,
+          "map5095": 34.6
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 67.3,
+          "recall": 52.9,
+          "map50": 60.3,
+          "map5095": 38.7
+        },
+        "yolov8n_denselitex_c2psa": {
           "precision": 68.6,
-          "recall": 57.1,
-          "map50": 66.5,
-          "map5095": 44.1
+          "recall": 58.6,
+          "map50": 65.8,
+          "map5095": 37.6
+        },
+        "yolov8n_densenet121_sppf": {
+          "precision": 71.4,
+          "recall": 65.7,
+          "map50": 65.6,
+          "map5095": 42.2
         }
       }
     },
@@ -212,28 +407,52 @@
           "map5095": 56.7
         },
         "yolov8n_densenet121": {
-          "precision": 91.1,
-          "recall": 78.4,
-          "map50": 86.0,
+          "precision": 84.1,
+          "recall": 72.6,
+          "map50": 80.6,
           "map5095": 56.0
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 82.9,
-          "recall": 85.4,
-          "map50": 89.9,
-          "map5095": 60.5
+          "precision": 81.5,
+          "recall": 80.4,
+          "map50": 89.0,
+          "map5095": 60.6
         },
         "yolov8n_densenet121_c2psa": {
-          "precision": 78.8,
-          "recall": 78.4,
-          "map50": 82.5,
-          "map5095": 54.8
+          "precision": 88.3,
+          "recall": 76.5,
+          "map50": 86.6,
+          "map5095": 55.3
         },
         "yolov8n_densenet121_sppf_c2psa": {
-          "precision": 83.4,
-          "recall": 78.7,
-          "map50": 88.1,
-          "map5095": 61.1
+          "precision": 80.9,
+          "recall": 80.4,
+          "map50": 85.0,
+          "map5095": 56.5
+        },
+        "yolov8n_denselitex": {
+          "precision": 84.5,
+          "recall": 74.5,
+          "map50": 83.9,
+          "map5095": 48.2
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 87.3,
+          "recall": 82.4,
+          "map50": 87.3,
+          "map5095": 58.2
+        },
+        "yolov8n_denselitex_c2psa": {
+          "precision": 78.9,
+          "recall": 74.5,
+          "map50": 78.1,
+          "map5095": 51.1
+        },
+        "yolov8n_densenet121_sppf": {
+          "precision": 83.9,
+          "recall": 81.9,
+          "map50": 87.9,
+          "map5095": 56.4
         }
       }
     },
@@ -250,28 +469,52 @@
           "map5095": 75.2
         },
         "yolov8n_densenet121": {
-          "precision": 97.1,
-          "recall": 95.7,
-          "map50": 97.9,
-          "map5095": 76.8
+          "precision": 97.4,
+          "recall": 96.2,
+          "map50": 98.0,
+          "map5095": 77.5
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 95.9,
-          "recall": 95.9,
-          "map50": 97.9,
-          "map5095": 77.3
+          "precision": 95.8,
+          "recall": 96.1,
+          "map50": 98.2,
+          "map5095": 76.4
         },
         "yolov8n_densenet121_c2psa": {
-          "precision": 96.3,
+          "precision": 98.4,
           "recall": 95.7,
-          "map50": 97.1,
-          "map5095": 78.6
+          "map50": 97.7,
+          "map5095": 81.9
         },
         "yolov8n_densenet121_sppf_c2psa": {
-          "precision": 97.6,
+          "precision": 97.7,
           "recall": 96.3,
-          "map50": 98.3,
-          "map5095": 79.0
+          "map50": 98.0,
+          "map5095": 81.8
+        },
+        "yolov8n_denselitex": {
+          "precision": 95.0,
+          "recall": 94.0,
+          "map50": 96.7,
+          "map5095": 67.2
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 96.5,
+          "recall": 95.0,
+          "map50": 97.8,
+          "map5095": 73.8
+        },
+        "yolov8n_denselitex_c2psa": {
+          "precision": 94.6,
+          "recall": 93.8,
+          "map50": 97.1,
+          "map5095": 73.0
+        },
+        "yolov8n_densenet121_sppf": {
+          "precision": 97.0,
+          "recall": 95.8,
+          "map50": 97.7,
+          "map5095": 80.5
         }
       }
     },
@@ -288,28 +531,52 @@
           "map5095": 45.7
         },
         "yolov8n_densenet121": {
-          "precision": 70.6,
+          "precision": 76.5,
           "recall": 65.2,
-          "map50": 73.9,
-          "map5095": 50.5
+          "map50": 73.2,
+          "map5095": 48.0
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 65.7,
-          "recall": 72.7,
-          "map50": 76.1,
-          "map5095": 51.2
+          "precision": 74.5,
+          "recall": 63.6,
+          "map50": 73.0,
+          "map5095": 45.4
         },
         "yolov8n_densenet121_c2psa": {
-          "precision": 68.3,
-          "recall": 68.2,
-          "map50": 69.8,
-          "map5095": 48.4
+          "precision": 75.7,
+          "recall": 66.7,
+          "map50": 75.5,
+          "map5095": 48.6
         },
         "yolov8n_densenet121_sppf_c2psa": {
-          "precision": 77.8,
-          "recall": 68.9,
-          "map50": 76.6,
-          "map5095": 50.8
+          "precision": 71.2,
+          "recall": 74.2,
+          "map50": 79.0,
+          "map5095": 48.9
+        },
+        "yolov8n_denselitex": {
+          "precision": 77.3,
+          "recall": 60.6,
+          "map50": 70.7,
+          "map5095": 41.7
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 73.7,
+          "recall": 62.1,
+          "map50": 70.3,
+          "map5095": 43.3
+        },
+        "yolov8n_denselitex_c2psa": {
+          "precision": 65.6,
+          "recall": 60.6,
+          "map50": 65.0,
+          "map5095": 37.8
+        },
+        "yolov8n_densenet121_sppf": {
+          "precision": 79.5,
+          "recall": 70.4,
+          "map50": 76.1,
+          "map5095": 48.3
         }
       }
     },
@@ -326,28 +593,52 @@
           "map5095": 57.7
         },
         "yolov8n_densenet121": {
-          "precision": 93.2,
-          "recall": 84.9,
-          "map50": 92.8,
-          "map5095": 63.0
+          "precision": 89.4,
+          "recall": 85.6,
+          "map50": 91.7,
+          "map5095": 60.3
         },
         "yolov8n_denselitex_sppf_c2psa": {
-          "precision": 89.7,
-          "recall": 87.6,
-          "map50": 91.3,
-          "map5095": 65.9
+          "precision": 88.0,
+          "recall": 85.6,
+          "map50": 90.7,
+          "map5095": 61.1
         },
         "yolov8n_densenet121_c2psa": {
-          "precision": 89.1,
-          "recall": 86.6,
-          "map50": 89.8,
-          "map5095": 65.0
+          "precision": 88.6,
+          "recall": 83.5,
+          "map50": 89.7,
+          "map5095": 58.3
         },
         "yolov8n_densenet121_sppf_c2psa": {
-          "precision": 92.4,
-          "recall": 87.6,
-          "map50": 92.8,
-          "map5095": 65.4
+          "precision": 90.2,
+          "recall": 85.1,
+          "map50": 90.5,
+          "map5095": 62.3
+        },
+        "yolov8n_denselitex": {
+          "precision": 86.1,
+          "recall": 84.5,
+          "map50": 86.1,
+          "map5095": 54.7
+        },
+        "yolov8n_denselitex_sppf": {
+          "precision": 88.9,
+          "recall": 86.6,
+          "map50": 91.3,
+          "map5095": 61.9
+        },
+        "yolov8n_denselitex_c2psa": {
+          "precision": 78.5,
+          "recall": 84.5,
+          "map50": 86.7,
+          "map5095": 52.2
+        },
+        "yolov8n_densenet121_sppf": {
+          "precision": 93.0,
+          "recall": 83.5,
+          "map50": 90.1,
+          "map5095": 61.0
         }
       }
     }

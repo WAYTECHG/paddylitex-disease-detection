@@ -620,7 +620,7 @@ function renderClassChart() {
 async function loadClassMetrics() {
   try {
     const url = new URL(paddyClassResultsUrl);
-    url.searchParams.set('v', 'class-results-20261007');
+    url.searchParams.set('v', 'c2f1-results-20261012-batch2');
     const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) {
       throw new Error(`per_class.json could not load (HTTP ${response.status}). Upload it beside app.js.`);
@@ -701,6 +701,12 @@ function renderSummaryCards() {
       const scoreGain = proposed[metric] - baseline[metric];
       getElement(valueId).textContent =
         `${scoreGain >= 0 ? '+' : ''}${scoreGain.toFixed(2)}%`;
+      // C2f x 1 result updates: show signed score differences.
+      getElement(valueId).style.color = scoreGain < 0 ? '#b5475a' : '';
+      const scoreLabel = getElement(valueId).nextElementSibling;
+      if (scoreLabel) {
+        scoreLabel.textContent = `${performanceMetrics[metric].label} score difference`;
+      }
       getElement(valueId).title =
         `Score difference: ${scoreGain.toFixed(2)} percentage points (${proposed[metric].toFixed(2)}% − ${baseline[metric].toFixed(2)}%).`;
       getElement(changeId).textContent =

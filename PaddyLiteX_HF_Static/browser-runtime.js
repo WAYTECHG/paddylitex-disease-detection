@@ -170,10 +170,10 @@
 
   window.PaddyLiteXBrowser = {
     async fetch(url, options = {}) {
-      if (url === '/api/benchmarks') return nativeFetch(new URL('results.json', root));
+      if (url === '/api/benchmarks') return nativeFetch(new URL('results.json', root), { cache: 'no-store' });
       if (url === '/api/status') {
         const models = await manifest();
-        const benchmarks = await (await nativeFetch(new URL('results.json', root))).json();
+        const benchmarks = await (await nativeFetch(new URL('results.json', root), { cache: 'no-store' })).json();
         return reply({ inference_enabled: Boolean(models.ready), models: benchmarks.main.map(model => ({
           id: model.id, checkpoint_present: Boolean(models.ready && models.models.some(item => item.id === model.id)),
         })) });
