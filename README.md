@@ -220,9 +220,7 @@ Open **http://localhost:8000**. Model assets/runtime downloads must be available
 
 ## Author and Acknowledgments
 
-**Wilbert Andrew Yonathan** · AIT2309246 · Xiamen University Malaysia
-
-GitHub: [WAYTECHG](https://github.com/WAYTECHG)
+**Wilbert Andrew Yonathan** · Xiamen University Malaysia
 
 My contributions include the custom DenseNet-based detector integration, DenseLiteX configuration, SPPF/C2PSA experiments, model evaluation and the PaddyLiteX comparison demo. The project builds on [Ultralytics YOLO](https://github.com/ultralytics/ultralytics), the [DenseNet architecture](https://arxiv.org/abs/1608.06993) and [ONNX Runtime Web](https://onnxruntime.ai/docs/tutorials/web/). Existing upstream modules remain credited to their original authors.
 
