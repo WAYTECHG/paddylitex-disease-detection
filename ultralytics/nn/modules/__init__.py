@@ -17,9 +17,6 @@ Examples:
     >>> subprocess.run(f"onnxslim {f} {f} && open {f}", shell=True, check=True)  # pip install onnxslim
 """
 from .densenet import DenseNetBackbone
-from .hybrid_densenet_idgt import HybridDenseNetIDGTBackbone
-from .shuffle_densenet import ShuffleDenseNetBackbone
-from .denselite_lsk_ema import LSKEMADenseNetBackbone, LSKEMAHybridDenseNetIDGTBackbone, LSKEMAShuffleDenseNetBackbone, ModifiedDenseNetBackbone
 from .block import (
     C1,
     C2,
@@ -62,7 +59,6 @@ from .block import (
     ResNetLayer,
     SCDown,
     TorchVision,
-    CoordinateAttention,
 )
 from .conv import (
     CBAM,
@@ -113,13 +109,6 @@ from .transformer import (
 
 __all__ = (
     "DenseNetBackbone",
-    "HybridDenseNetIDGTBackbone",
-    "ShuffleDenseNetBackbone",
-    "LSKEMADenseNetBackbone",
-    "LSKEMAHybridDenseNetIDGTBackbone",
-    "LSKEMAShuffleDenseNetBackbone",
-    "ModifiedDenseNetBackbone",
-    "Coordinate Attention",
     "AIFI",
     "C1",
     "C2",
