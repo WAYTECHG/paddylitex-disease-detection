@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title description">
+  <title id="title">PaddyLiteX — Paddy Disease Detection</title>
+  <desc id="description">A green rice leaf emblem on a navy research banner. Final Year Thesis, nine-class detection, DenseLiteX, SPPF and C2PSA.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#091c2c"/>
+      <stop offset="1" stop-color="#123e3d"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#11b88b"/>
+      <stop offset="1" stop-color="#a5ef9b"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#8ce0c2" stroke-opacity=".06"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="360" rx="24" fill="url(#background)"/>
+  <rect width="1200" height="360" rx="24" fill="url(#grid)"/>
+  <circle cx="1110" cy="60" r="210" fill="#26b790" opacity=".06"/>
+  <circle cx="1030" cy="332" r="132" fill="#80e0b1" opacity=".04"/>
+  <rect x="62" y="97" width="160" height="166" rx="36" fill="#17443f" stroke="#76dab2" stroke-opacity=".3"/>
+  <path d="M104 225C85 178 115 139 178 124C179 178 153 220 104 225Z" fill="url(#leaf)"/>
+  <path d="M102 237C115 200 135 169 165 142" fill="none" stroke="#e1ffe9" stroke-width="5" stroke-linecap="round"/>
+  <path d="M125 194L116 166M141 173L165 169" fill="none" stroke="#e1ffe9" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+  <text x="270" y="93" fill="#8de6bb" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="3">FINAL YEAR THESIS · XMUM</text>
+  <text x="266" y="170" fill="#f4fff9" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700" letter-spacing="-2">PaddyLiteX</text>
+  <text x="270" y="212" fill="#bfdbd6" font-family="Arial, Helvetica, sans-serif" font-size="24">Efficient paddy leaf disease detection</text>
+  <rect x="270" y="246" width="178" height="34" rx="17" fill="#205447"/>
+  <text x="359" y="268" text-anchor="middle" fill="#c9f4da" font-family="Arial, Helvetica, sans-serif" font-size="14">9 detection classes</text>
+  <rect x="461" y="246" width="250" height="34" rx="17" fill="#244754"/>
+  <text x="586" y="268" text-anchor="middle" fill="#d1edf4" font-family="Arial, Helvetica, sans-serif" font-size="14">DenseLiteX + SPPF + C2PSA</text>
+  <path d="M954 143h-20v-20M1034 143h20v-20M954 223h-20v20M1034 223h20v20" fill="none" stroke="#7ae0ac" stroke-width="4" stroke-linecap="round"/>
+  <path d="M973 214C958 178 979 152 1024 143C1025 183 1007 211 973 214Z" fill="url(#leaf)" opacity=".72"/>
+  <path d="M973 219L1012 157" stroke="#c8f7d9" stroke-width="3" stroke-linecap="round"/>
+</svg>

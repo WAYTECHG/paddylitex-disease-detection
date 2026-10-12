@@ -1,19 +1,36 @@
-@'
+# Python and local environments
 __pycache__/
 *.py[cod]
 *.egg-info/
 .ipynb_checkpoints/
 .venv/
+venv/
 .env
 .env.*
-datasets/
-runs/
-weights/
-updated_checkpoints/
+!.env.example
+
+# Local datasets and generated training results
+/datasets/
+/rice/
+/train/
+/test/
+/online_images/
+/runs/
+/weights/
+/updated_checkpoints/
 *.pt
 *.pth
-*.onnx
 *.engine
-*.zip
 *.cache
-'@ | Set-Content "$target\.gitignore" -Encoding ASCII
+*.zip
+
+# Keep ONNX and WASM assets in PaddyLiteX_HF_Static tracked.
+# Do not add global *.onnx or *.wasm ignore patterns.
+
+# Local update kits and superseded demos
+/PaddyLiteX_*_Update/
+/PaddyLiteX_HF_Update_Kit/
+/PaddyLiteX_Model_Filenames_Fix/
+/PaddyLiteX_Render_Public/
+/paddy_demo/
+statistics-backup-*/

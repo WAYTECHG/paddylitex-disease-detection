@@ -1,0 +1,23 @@
+# PaddyLiteX research dependencies; Python 3.10 or 3.11.
+# The customized ultralytics/ package is included in this repository.
+# Do not install a different pip ultralytics package in its place.
+# These are compatibility ranges, NOT the original experiment's version lock.
+# Install a matching CUDA torch/torchvision pair first (see README).
+torch>=2.2,<3
+torch!=2.4.0; sys_platform == "win32"
+torchvision>=0.17,<1
+numpy>=1.23.5,<3
+matplotlib>=3.3,<4
+opencv-python>=4.6,<5
+pillow>=9,<13
+PyYAML>=6,<7
+requests>=2.23,<3
+scipy>=1.8,<2
+psutil>=5.8,<8
+polars>=0.20,<2
+nvidia-ml-py>=12,<14
+ultralytics-thop>=2.0.18,<3
+
+# Optional ONNX export and CPU verification tools, included for the demo workflow.
+onnx>=1.16,<2
+onnxruntime>=1.18,<2
