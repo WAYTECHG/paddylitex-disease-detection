@@ -1,0 +1,31 @@
+nc: 9
+depth_multiple: 1.0
+width_multiple: 1.0
+
+backbone:
+  - [-1, 1, DenseNetBackbone, [20, [6, 8, 12, 6], 2, 0.0, 64, 128, 256]]
+
+head:
+  - [0, 1, Index, [64, 0]]       # 1: P3/8
+  - [0, 1, Index, [128, 1]]      # 2: P4/16
+  - [0, 1, Index, [256, 2]]      # 3: P5/32
+
+  # Top-down path
+  - [3, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[4, 2], 1, Concat, [1]]
+  - [-1, 1, C2f, [128]]
+
+  - [6, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[7, 1], 1, Concat, [1]]
+  - [-1, 1, C2f, [64]]
+
+  # Bottom-up path
+  - [-1, 1, Conv, [64, 3, 2]]
+  - [[10, 6], 1, Concat, [1]]
+  - [-1, 1, C2f, [128]]
+
+  - [-1, 1, Conv, [128, 3, 2]]
+  - [[13, 3], 1, Concat, [1]]
+  - [-1, 1, C2f, [256]]
+
+  - [[9, 12, 15], 1, Detect, [nc]]

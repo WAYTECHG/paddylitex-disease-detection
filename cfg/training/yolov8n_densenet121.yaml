@@ -1,0 +1,48 @@
+  # DenseNet-121 + YOLOv8n baseline for paddy disease detection
+  # This model is trained from scratch when loaded from this YAML file.
+  #
+  # Backbone:
+  #   DenseNet-121-style block configuration [6, 12, 24, 16]
+  #   Returns P3, P4, P5 feature maps
+  #
+  # Head:
+  #   YOLOv8-style feature pyramid detection head
+
+  nc: 9
+  depth_multiple: 1.0
+  width_multiple: 1.0
+  channels: 3
+
+  backbone:
+    # [from, repeats, module, args]
+    # args = [growth_rate, block_config, drop_rate, p3_channels, p4_channels, p5_channels]
+    - [-1, 1, DenseNetBackbone, [32, [6, 12, 24, 16], 4, 0.0, 64, 128, 256]]
+
+  head:
+    # Extract P3, P4, P5 from DenseNetBackbone output list
+    - [0, 1, Index, [64, 0]]    # 1: P3/8
+    - [0, 1, Index, [128, 1]]   # 2: P4/16
+    - [0, 1, Index, [256, 2]]   # 3: P5/32
+
+    # Top-down path: P5 -> P4
+    - [3, 1, nn.Upsample, [None, 2, "nearest"]]  # 4
+    - [[4, 2], 1, Concat, [1]]                   # 5
+    - [-1, 1, C2f, [128]]                        # 6
+
+    # Top-down path: P4 -> P3
+    - [6, 1, nn.Upsample, [None, 2, "nearest"]]  # 7
+    - [[7, 1], 1, Concat, [1]]                   # 8
+    - [-1, 1, C2f, [64]]                         # 9: small detection feature
+
+    # Bottom-up path: P3 -> P4
+    - [-1, 1, Conv, [64, 3, 2]]                  # 10
+    - [[10, 6], 1, Concat, [1]]                  # 11
+    - [-1, 1, C2f, [128]]                        # 12: medium detection feature
+
+    # Bottom-up path: P4 -> P5
+    - [-1, 1, Conv, [128, 3, 2]]                 # 13
+    - [[13, 3], 1, Concat, [1]]                  # 14
+    - [-1, 1, C2f, [256]]                        # 15: large detection feature
+
+    # Detect(P3, P4, P5)
+    - [[9, 12, 15], 1, Detect, [nc]]

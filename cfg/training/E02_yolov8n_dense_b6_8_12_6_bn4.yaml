@@ -1,0 +1,38 @@
+# E02: planned trial; no experimental result is implied.
+# Isolate depth reduction: compare with E01.
+nc: 9
+depth_multiple: 1.0
+width_multiple: 1.0
+
+backbone:
+  # args: [growth_rate, block_config, bn_size, drop_rate, P3_channels, P4_channels, P5_channels]
+  - [-1, 1, DenseNetBackbone, [20, [6, 8, 12, 6], 4, 0.0, 64, 128, 256]]
+
+head:
+  # Extract P3, P4 and P5 from the backbone output list.
+  - [0, 1, Index, [64, 0]]       # 1: P3/8
+  - [0, 1, Index, [128, 1]]      # 2: P4/16
+  - [0, 1, Index, [256, 2]]      # 3: P5/32
+
+  # Top-down path: P5 -> P4.
+  - [3, 1, nn.Upsample, [None, 2, "nearest"]]  # 4
+  - [[4, 2], 1, Concat, [1]]                   # 5
+  - [-1, 1, C2f, [128]]                       # 6
+
+  # Top-down path: P4 -> P3.
+  - [6, 1, nn.Upsample, [None, 2, "nearest"]]  # 7
+  - [[7, 1], 1, Concat, [1]]                   # 8
+  - [-1, 1, C2f, [64]]                        # 9
+
+  # Bottom-up path: P3 -> P4.
+  - [-1, 1, Conv, [64, 3, 2]]                  # 10
+  - [[10, 6], 1, Concat, [1]]                  # 11
+  - [-1, 1, C2f, [128]]                       # 12
+
+  # Bottom-up path: P4 -> P5.
+  - [-1, 1, Conv, [128, 3, 2]]                 # 13
+  - [[13, 3], 1, Concat, [1]]                  # 14
+  - [-1, 1, C2f, [256]]                       # 15
+
+  # Detect at P3, P4 and P5.
+  - [[9, 12, 15], 1, Detect, [nc]]             # 16

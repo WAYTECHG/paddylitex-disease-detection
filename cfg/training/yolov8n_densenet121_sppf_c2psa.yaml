@@ -1,0 +1,44 @@
+# DenseNet121 + SPPF + C2PSA ablation (nine-class detection)
+nc: 9
+depth_multiple: 1.0
+width_multiple: 1.0
+channels: 3
+
+backbone:
+  # [from, repeats, module, args]
+  # args = [growth_rate, block_config, bn_size, drop_rate,
+  #         p3_channels, p4_channels, p5_channels]
+  - [-1, 1, DenseNetBackbone, [32, [6, 12, 24, 16], 4, 0.0, 64, 128, 256]] # 0
+
+head:
+  # Extract P3, P4, P5 from DenseNetBackbone output list
+  - [0, 1, Index, [64, 0]]    # 1: P3/8
+  - [0, 1, Index, [128, 1]]   # 2: P4/16
+  - [0, 1, Index, [256, 2]]   # 3: P5/32
+
+  # Refine P5 before multi-scale fusion
+  - [3, 1, SPPF, [256, 5]]   # 4: P5 context
+  - [4, 1, C2PSA, [256]]     # 5: refined P5
+
+  # Top-down path: refined P5 -> P4
+  - [5, 1, nn.Upsample, [None, 2, "nearest"]] # 6
+  - [[6, 2], 1, Concat, [1]]                  # 7
+  - [-1, 1, C2f, [128]]                       # 8
+
+  # Top-down path: P4 -> P3
+  - [8, 1, nn.Upsample, [None, 2, "nearest"]] # 9
+  - [[9, 1], 1, Concat, [1]]                  # 10
+  - [-1, 1, C2f, [64]]                        # 11: small detection feature
+
+  # Bottom-up path: P3 -> P4
+  - [-1, 1, Conv, [64, 3, 2]]                 # 12
+  - [[12, 8], 1, Concat, [1]]                 # 13
+  - [-1, 1, C2f, [128]]                       # 14: medium detection feature
+
+  # Bottom-up path: P4 -> P5; concatenate with refined P5
+  - [-1, 1, Conv, [128, 3, 2]]                # 15
+  - [[15, 5], 1, Concat, [1]]                 # 16
+  - [-1, 1, C2f, [256]]                       # 17: large detection feature
+
+  # Detect(P3, P4, P5)
+  - [[11, 14, 17], 1, Detect, [nc]]            # 18

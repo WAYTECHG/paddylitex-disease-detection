@@ -1,0 +1,37 @@
+# DenseLiteX + C2PSA only
+# Ablation study: Evaluate the effect of C2PSA without SPPF.
+
+nc: 9
+depth_multiple: 1.0
+width_multiple: 1.0
+
+backbone:
+  - [-1, 1, DenseNetBackbone, [20, [6, 8, 12, 6], 2, 0.0, 64, 128, 256]]
+
+head:
+  - [0, 1, Index, [64, 0]]       # P3
+  - [0, 1, Index, [128, 1]]      # P4
+  - [0, 1, Index, [256, 2]]      # P5
+
+  # Apply C2PSA directly on P5
+  - [3, 1, C2PSA, [256]]
+
+  # Top-down
+  - [4, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[5, 2], 1, Concat, [1]]
+  - [-1, 1, C2f, [128]]
+
+  - [7, 1, nn.Upsample, [None, 2, "nearest"]]
+  - [[8, 1], 1, Concat, [1]]
+  - [-1, 1, C2f, [64]]
+
+  # Bottom-up
+  - [-1, 1, Conv, [64, 3, 2]]
+  - [[11, 7], 1, Concat, [1]]
+  - [-1, 1, C2f, [128]]
+
+  - [-1, 1, Conv, [128, 3, 2]]
+  - [[14, 4], 1, Concat, [1]]
+  - [-1, 1, C2f, [256]]
+
+  - [[10, 13, 16], 1, Detect, [nc]]

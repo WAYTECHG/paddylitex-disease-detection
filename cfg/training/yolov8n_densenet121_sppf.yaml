@@ -1,0 +1,39 @@
+nc: 9
+channels: 3
+depth_multiple: 1.0
+width_multiple: 1.0
+
+backbone:
+  - [-1, 1, DenseNetBackbone, [32, [6, 12, 24, 16], 4, 0.0, 64, 128, 256]]
+
+head:
+  # Extract P3, P4, P5 from DenseNetBackbone output list
+  - [0, 1, Index, [64, 0]]    # 1: P3/8
+  - [0, 1, Index, [128, 1]]   # 2: P4/16
+  - [0, 1, Index, [256, 2]]   # 3: P5/32
+
+  # Add SPPF on P5
+  - [3, 1, SPPF, [256, 5]]    # 4: refined P5/32
+
+  # Top-down path: P5 -> P4
+  - [4, 1, nn.Upsample, [None, 2, "nearest"]]  # 5
+  - [[5, 2], 1, Concat, [1]]                   # 6
+  - [-1, 1, C2f, [128]]                        # 7
+
+  # Top-down path: P4 -> P3
+  - [7, 1, nn.Upsample, [None, 2, "nearest"]]  # 8
+  - [[8, 1], 1, Concat, [1]]                   # 9
+  - [-1, 1, C2f, [64]]                         # 10: small detection feature
+
+  # Bottom-up path: P3 -> P4
+  - [-1, 1, Conv, [64, 3, 2]]                  # 11
+  - [[11, 7], 1, Concat, [1]]                  # 12
+  - [-1, 1, C2f, [128]]                        # 13: medium detection feature
+
+  # Bottom-up path: P4 -> P5
+  - [-1, 1, Conv, [128, 3, 2]]                 # 14
+  - [[14, 4], 1, Concat, [1]]                  # 15
+  - [-1, 1, C2f, [256]]                        # 16: large detection feature
+
+  # Detect(P3, P4, P5)
+  - [[10, 13, 16], 1, Detect, [nc]]
