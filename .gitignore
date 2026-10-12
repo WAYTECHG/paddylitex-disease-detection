@@ -1,1 +1,19 @@
-
+@'
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+.env
+.env.*
+datasets/
+runs/
+weights/
+updated_checkpoints/
+*.pt
+*.pth
+*.onnx
+*.engine
+*.zip
+*.cache
+'@ | Set-Content "$target\.gitignore" -Encoding ASCII
