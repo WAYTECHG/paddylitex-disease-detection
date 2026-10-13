@@ -91,8 +91,6 @@ DenseNet121 + C2PSA achieves the highest mAP@0.5 in this group, while DenseNet12
 
 **Evaluation notes:** Precision, recall and mAP are shown as percentages. Absolute score differences are expressed in percentage points; parameter/GFLOP changes are relative percentages. Each architecture has one reported experimental run; variability across training seeds is not available. Parameters and GFLOPs are taken from the reported model summaries. Reproduction should confirm a consistent profiling input size, fusion policy and operation-counting convention. No inference-time benchmark results are claimed here yet.
 
-The demo's [`results.json`](PaddyLiteX_HF_Static/results.json) and [`per_class.json`](PaddyLiteX_HF_Static/per_class.json) hold the aggregate and class-level values displayed by the website. These evaluation metrics describe the test set, not the accuracy of a single uploaded image.
-
 ## Dataset and Classes
 
 Example images are available from the [Rice Leaf Diseases dataset on Kaggle](https://www.kaggle.com/datasets/yusufmurtaza01/rice-leaf-diseases). Reproducing this project's reported detection results requires the same YOLO bounding-box annotations and train/validation/test split; downloading the source images alone does not recreate them.
