@@ -20,6 +20,21 @@
         "320": "models/yolov8n_320.onnx",
         "512": "models/yolov8n_512.onnx",
         "640": "models/yolov8n_640.onnx"
+      },
+      "checkpoint_sha256": "1df03d8b994367b4795cd0e26b819cb0971000f40d2c6609a4d1077c573e0b83",
+      "onnx_sha256": {
+        "320": "e1deb016b84198dcb274c382443cb0796f9d2dee09e503965b768c5ad1880b98",
+        "512": "f1d486a6002a8cf93d2109f342116b3b4d8d26b7ac0198647cda62a0dc54191b",
+        "640": "6ccd67015f90e6255e6ad1547260c0cda60ca733605997194c3799ea2bea8cc8"
+      },
+      "evaluation_snapshot": "baseline1-charts-20261013",
+      "export_settings": {
+        "format": "onnx",
+        "opset": 17,
+        "batch": 1,
+        "dynamic": false,
+        "half": false,
+        "nms": false
       }
     },
     {

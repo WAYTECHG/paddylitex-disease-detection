@@ -79,22 +79,37 @@
         "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
         "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
         "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n": {
+        "split": "test",
+        "run_name": "yolov8n_fs1",
+        "source_screenshot": "image(20261013-075958).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the three-decimal displayed per-class table.",
+        "complexity_note": "Fused model summary: 3,007,403 parameters and 8.1 GFLOPs.",
+        "training_runtime": {
+          "python": "3.10.20",
+          "ultralytics": "8.4.70",
+          "torch": "2.5.1+cu121",
+          "device": "NVIDIA GeForce RTX 4060 Laptop GPU"
+        }
       }
     },
-    "last_results_update": "c2f1-results-20261012-batch2"
+    "last_results_update": "baseline1-charts-20261013"
   },
   "main": [
     {
       "id": "yolov8n",
       "label": "YOLOv8n",
       "role": "Baseline 1",
-      "precision": 83.68,
-      "recall": 76.61,
-      "map50": 80.79,
-      "map5095": 54.66,
+      "precision": 81.24,
+      "recall": 78.45,
+      "map50": 80.94,
+      "map5095": 54.72,
       "parameters": 3007403,
       "gflops": 8.1,
-      "color": "#4277ef"
+      "color": "#4277ef",
+      "checkpoint": "runs/train/yolov8n/weights/best.pt"
     },
     {
       "id": "yolov8n_densenet121",

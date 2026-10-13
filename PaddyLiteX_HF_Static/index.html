@@ -10,8 +10,10 @@
     <title>PaddyLiteX · Thesis II</title>
     <link rel="icon" href="./favicon.svg" />
     <link rel="stylesheet" href="./style.css" />
-    <script src="./browser-runtime.js?v=clean-model-names-20261012" defer></script>
-    <script src="./app.js?v=hf-root-sync-20261012" defer></script>
+    <link rel="stylesheet" href="./charts.css?v=baseline1-charts-20261013" />
+    <script src="./browser-runtime.js?v=baseline1-charts-20261013" defer></script>
+    <script src="./charts.js?v=baseline1-charts-20261013" defer></script>
+    <script src="./app.js?v=baseline1-charts-20261013" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -330,15 +332,29 @@
                 <p class="eyebrow">DETECTION PERFORMANCE</p>
                 <h2>Quality across models</h2>
               </div>
-              <select id="metric" aria-label="Detection metric">
+              <div class="chart-options">
+                <label>
+                  Detection metric
+                  <select id="metric" aria-label="Detection metric">
                 <option value="map5095">mAP@0.5:0.95</option>
                 <option value="map50">mAP@0.5</option>
                 <option value="precision">Precision</option>
                 <option value="recall">Recall</option>
               </select>
+                </label>
+                <label>
+                  Chart view
+                  <select id="quality-chart-type">
+                    <option value="bar">Bar chart</option>
+                    <option value="dot">Dot plot</option>
+                    <option value="radar">Radar · all metrics</option>
+                    <option value="heatmap">Heatmap · all metrics</option>
+                  </select>
+                </label>
+              </div>
             </div>
             <div id="quality-chart" class="bars"></div>
-            <p class="chart-note">Percent · higher is better · axis starts at zero</p>
+            <p class="chart-note" id="quality-chart-note">Percent · higher is better · axis starts at zero</p>
           </section>
           <section class="panel">
             <div class="panel-heading">
@@ -346,10 +362,22 @@
                 <p class="eyebrow">COMPUTATIONAL COMPLEXITY</p>
                 <h2>Cost across models</h2>
               </div>
-              <select id="cost-metric" aria-label="Complexity metric">
+              <div class="chart-options">
+                <label>
+                  Complexity metric
+                  <select id="cost-metric" aria-label="Complexity metric">
                 <option value="parameters">Parameters</option>
                 <option value="gflops">GFLOPs</option>
               </select>
+                </label>
+                <label>
+                  Chart view
+                  <select id="cost-chart-type">
+                    <option value="bar">Bar chart</option>
+                    <option value="dot">Dot plot</option>
+                  </select>
+                </label>
+              </div>
             </div>
             <div id="cost-chart" class="bars"></div>
             <p class="chart-note">Lower is lighter · axis starts at zero</p>
@@ -402,6 +430,15 @@
             <button class="secondary" id="download-class-csv" disabled>Export class CSV</button>
           </div>
           <div class="class-toolbar">
+            <label>
+              Chart view
+              <select id="class-chart-type">
+                <option value="bar">Grouped bars</option>
+                <option value="dot">Dot plot</option>
+                <option value="heatmap">Heatmap</option>
+                <option value="radar">Radar</option>
+              </select>
+            </label>
             <label>
               Performance metric
               <select id="class-metric">

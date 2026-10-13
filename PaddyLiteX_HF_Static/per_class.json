@@ -79,9 +79,23 @@
         "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
         "class_precision_note": "Percent metrics transcribed from the displayed per-class table; rounding follows the screenshot.",
         "complexity_note": "Parameters and GFLOPs transcribed from the displayed model summary; profiling convention awaits confirmation."
+      },
+      "yolov8n": {
+        "split": "test",
+        "run_name": "yolov8n_fs1",
+        "source_screenshot": "image(20261013-075958).png",
+        "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
+        "class_precision_note": "Percent metrics transcribed from the three-decimal displayed per-class table.",
+        "complexity_note": "Fused model summary: 3,007,403 parameters and 8.1 GFLOPs.",
+        "training_runtime": {
+          "python": "3.10.20",
+          "ultralytics": "8.4.70",
+          "torch": "2.5.1+cu121",
+          "device": "NVIDIA GeForce RTX 4060 Laptop GPU"
+        }
       }
     },
-    "last_results_update": "c2f1-results-20261012-batch2"
+    "last_results_update": "baseline1-charts-20261013"
   },
   "classes": [
     {
@@ -91,10 +105,10 @@
       "instances": 209,
       "models": {
         "yolov8n": {
-          "precision": 93.3,
-          "recall": 90.9,
-          "map50": 93.9,
-          "map5095": 71.4
+          "precision": 92.8,
+          "recall": 93.3,
+          "map50": 95.2,
+          "map5095": 70.6
         },
         "yolov8n_densenet121": {
           "precision": 97.2,
@@ -153,10 +167,10 @@
       "instances": 1280,
       "models": {
         "yolov8n": {
-          "precision": 89.7,
-          "recall": 83.8,
-          "map50": 92.1,
-          "map5095": 57.7
+          "precision": 88.6,
+          "recall": 84.7,
+          "map50": 91.2,
+          "map5095": 58.1
         },
         "yolov8n_densenet121": {
           "precision": 96.4,
@@ -215,10 +229,10 @@
       "instances": 69,
       "models": {
         "yolov8n": {
-          "precision": 75.4,
-          "recall": 44.9,
-          "map50": 52.1,
-          "map5095": 33.6
+          "precision": 72.6,
+          "recall": 52.2,
+          "map50": 53.4,
+          "map5095": 33.2
         },
         "yolov8n_densenet121": {
           "precision": 68.0,
@@ -277,10 +291,10 @@
       "instances": 89,
       "models": {
         "yolov8n": {
-          "precision": 85.4,
+          "precision": 78.4,
           "recall": 84.3,
-          "map50": 83.0,
-          "map5095": 54.3
+          "map50": 80.3,
+          "map5095": 53.0
         },
         "yolov8n_densenet121": {
           "precision": 85.0,
@@ -339,10 +353,10 @@
       "instances": 70,
       "models": {
         "yolov8n": {
-          "precision": 65.8,
-          "recall": 55.7,
-          "map50": 63.7,
-          "map5095": 39.5
+          "precision": 65.0,
+          "recall": 64.3,
+          "map50": 64.0,
+          "map5095": 40.3
         },
         "yolov8n_densenet121": {
           "precision": 68.4,
@@ -401,10 +415,10 @@
       "instances": 51,
       "models": {
         "yolov8n": {
-          "precision": 83.8,
-          "recall": 86.3,
-          "map50": 86.7,
-          "map5095": 56.7
+          "precision": 80.3,
+          "recall": 79.9,
+          "map50": 85.6,
+          "map5095": 53.4
         },
         "yolov8n_densenet121": {
           "precision": 84.1,
@@ -463,10 +477,10 @@
       "instances": 535,
       "models": {
         "yolov8n": {
-          "precision": 96.4,
-          "recall": 95.4,
-          "map50": 98.0,
-          "map5095": 75.2
+          "precision": 94.4,
+          "recall": 93.8,
+          "map50": 97.7,
+          "map5095": 74.4
         },
         "yolov8n_densenet121": {
           "precision": 97.4,
@@ -525,10 +539,10 @@
       "instances": 66,
       "models": {
         "yolov8n": {
-          "precision": 76.5,
-          "recall": 66.7,
-          "map50": 70.1,
-          "map5095": 45.7
+          "precision": 71.9,
+          "recall": 69.7,
+          "map50": 73.2,
+          "map5095": 49.5
         },
         "yolov8n_densenet121": {
           "precision": 76.5,
@@ -587,10 +601,10 @@
       "instances": 97,
       "models": {
         "yolov8n": {
-          "precision": 86.7,
-          "recall": 81.4,
-          "map50": 87.6,
-          "map5095": 57.7
+          "precision": 87.1,
+          "recall": 83.9,
+          "map50": 87.7,
+          "map5095": 60.0
         },
         "yolov8n_densenet121": {
           "precision": 89.4,

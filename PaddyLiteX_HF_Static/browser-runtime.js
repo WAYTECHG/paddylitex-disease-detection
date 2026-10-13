@@ -18,7 +18,7 @@
   function getWorker() {
     if (workerFailure) throw new Error(workerFailure);
     if (worker) return worker;
-    worker = new Worker(new URL('detection-worker.js?v=clean-model-names-20261012', root));
+    worker = new Worker(new URL('detection-worker.js?v=baseline1-charts-20261013', root));
     worker.onmessage = ({ data }) => {
       const task = pending.get(data.requestId);
       if (!task) return;

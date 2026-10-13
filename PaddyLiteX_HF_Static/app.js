@@ -369,6 +369,26 @@ function renderBarChart(containerId, models, metric) {
   `;
 }
 
+function renderComparisonChart(containerId, models, metric) {
+  const quality = containerId === 'quality-chart';
+  const type = getElement(quality ? 'quality-chart-type' : 'cost-chart-type').value;
+  const percentage = Boolean(performanceMetrics[metric]);
+  const limit = percentage ? 100 : axisScale(Math.max(...models.map((model) => model[metric]))).limit;
+  if (type === 'bar') {
+    renderBarChart(containerId, models, metric);
+  } else {
+    PaddyLiteXCharts.renderComparison(containerId, models, metric, {
+      type, study: currentStudy, limit,
+      format: (value) => formatMetric(value, metric),
+    });
+  }
+  if (quality) {
+    getElement('quality-chart-note').textContent = ['radar', 'heatmap'].includes(type)
+      ? 'All four detection metrics (%) · shared 0–100% scale. The metric selector still controls the scatter plot.'
+      : 'Selected detection metric (%) · higher is better · scale starts at zero.';
+  }
+}
+
 function renderScatterPlot(models, performanceMetric, complexityMetric) {
   const performance = performanceMetrics[performanceMetric];
   const complexity = complexityMetrics[complexityMetric];
@@ -449,8 +469,8 @@ function renderBenchmarks() {
   const performanceMetric = getElement('metric').value;
   const complexityMetric = getElement('cost-metric').value;
 
-  renderBarChart('quality-chart', models, performanceMetric);
-  renderBarChart('cost-chart', models, complexityMetric);
+  renderComparisonChart('quality-chart', models, performanceMetric);
+  renderComparisonChart('cost-chart', models, complexityMetric);
   renderScatterPlot(models, performanceMetric, complexityMetric);
   renderClassChart();
 
@@ -615,12 +635,21 @@ function renderClassChart() {
     (hasValues
       ? `${split} set · percent · higher is better · 0–100% scale. N/A means no evaluated value was supplied. AP is reported per class; mAP averages across classes.${coverageNote}`
       : 'All nine disease classes are shown. N/A means their evaluation scores have not been supplied yet.');
+  const chartType = getElement('class-chart-type').value;
+  if (chartType !== 'bar' && hasValues) {
+    PaddyLiteXCharts.renderClasses(models, rows, metric, {
+      type: chartType, study: currentStudy, label,
+    });
+    if (chartType === 'radar') {
+      getElement('class-note').textContent += ' Radar axes stay in dataset class order; model names toggle the series.';
+    }
+  }
 }
 
 async function loadClassMetrics() {
   try {
     const url = new URL(paddyClassResultsUrl);
-    url.searchParams.set('v', 'c2f1-results-20261012-batch2');
+    url.searchParams.set('v', 'baseline1-charts-20261013');
     const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) {
       throw new Error(`per_class.json could not load (HTTP ${response.status}). Upload it beside app.js.`);
@@ -773,6 +802,9 @@ document.querySelectorAll('[data-scope]').forEach((button) => {
 });
 
 getElement('metric').addEventListener('change', renderBenchmarks);
+getElement('quality-chart-type').addEventListener('change', renderBenchmarks);
+getElement('cost-chart-type').addEventListener('change', renderBenchmarks);
+getElement('class-chart-type').addEventListener('change', renderClassChart);
 getElement('cost-metric').addEventListener('change', renderBenchmarks);
 getElement('download-csv').addEventListener('click', downloadBenchmarks);
 getElement('class-metric').addEventListener('change', renderClassChart);
