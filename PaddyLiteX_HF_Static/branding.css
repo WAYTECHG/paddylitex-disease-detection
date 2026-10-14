@@ -1,0 +1,55 @@
+/* University identity beside the existing PaddyLiteX navigation. */
+.research {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.xmum-logo {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.research-label {
+  white-space: nowrap;
+}
+
+@media (max-width: 1050px) {
+  .topbar {
+    flex-wrap: wrap;
+  }
+
+  .research {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .tabs {
+    order: 2;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 720px) {
+  .research {
+    gap: 7px;
+    font-size: 12px;
+  }
+
+  .xmum-logo {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 420px) {
+  .research-label {
+    max-width: 125px;
+    white-space: normal;
+  }
+}

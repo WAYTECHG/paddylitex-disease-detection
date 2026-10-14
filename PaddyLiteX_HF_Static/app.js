@@ -549,7 +549,10 @@ function classChartModels() {
 
 function classModelCode(model, index) {
   if (model.role === 'Proposed') return 'P';
-  return currentStudy === 'main' ? `B${index + 1}` : `A${index + 1}`;
+  if (currentStudy === 'main') {
+    return model.id === 'yolov8n_densenet121' ? 'IP' : 'B';
+  }
+  return `A${index + 1}`;
 }
 
 function renderClassChart() {
@@ -562,7 +565,7 @@ function renderClassChart() {
     ? 'Every class, three perspectives.'
     : 'Class results across available ablations.';
   getElement('class-heading').nextElementSibling.textContent = mainStudy
-    ? 'Compare your two baselines and final proposed model for each class.'
+    ? 'Compare your baseline, initial proposed and final proposed models for each class.'
     : 'Compare the ablation models with supplied class results and the final proposed model.';
   const metric = getElement('class-metric').value;
   const label = classMetricLabels[metric];
@@ -847,6 +850,13 @@ getElement('dropzone').addEventListener('drop', (event) => {
 async function initialize() {
   try {
     benchmarkData = await readResponse(await PaddyLiteXBrowser.fetch('/api/benchmarks'));
+    // Keep role captions consistent across cards, charts and CSV exports.
+    for (const models of [benchmarkData.main, benchmarkData.ablation]) {
+      for (const model of models || []) {
+        if (model.id === 'yolov8n') model.role = 'Baseline';
+        if (model.id === 'yolov8n_densenet121') model.role = 'Initial proposed';
+      }
+    }
     const status = await readResponse(await PaddyLiteXBrowser.fetch('/api/status'));
     const available = status.models.filter((model) => model.checkpoint_present).length;
     const statusBadge = getElement('service-status');
@@ -882,50 +892,25 @@ async function initialize() {
   }
 }
 
-// Presentation controls. The illustration is separate from model predictions.
+// Respect reduced motion and suspend hero animation when it is offscreen.
 function initializePresentation() {
   const hero = getElement('studio-hero');
-  const replayButton = getElement('replay-intro');
-  const motionButton = getElement('toggle-motion');
+  if (!hero) return;
   const preference =
     typeof matchMedia === 'function'
       ? matchMedia('(prefers-reduced-motion: reduce)')
       : { matches: false };
-  let motionPaused = false;
 
-  function updateMotionControls() {
-    const reduced = preference.matches;
-    hero.classList.toggle('motion-paused', motionPaused || reduced);
-    replayButton.disabled = reduced;
-    motionButton.disabled = reduced;
-    motionButton.textContent = reduced
-      ? 'Motion reduced'
-      : motionPaused
-        ? 'Play motion'
-        : 'Pause motion';
-    motionButton.setAttribute('aria-pressed', String(motionPaused || reduced));
+  function updateMotionPreference() {
+    hero.classList.toggle('motion-paused', preference.matches);
   }
 
-  motionButton.addEventListener('click', () => {
-    motionPaused = !motionPaused;
-    updateMotionControls();
-  });
-
-  replayButton.addEventListener('click', () => {
-    if (preference.matches) return;
-    motionPaused = false;
-    updateMotionControls();
-    hero.classList.remove('intro-playing');
-    // Restart the entrance after the browser has painted the reset state.
-    requestAnimationFrame(() => requestAnimationFrame(() => hero.classList.add('intro-playing')));
-  });
-
-  getElement('start-comparison').addEventListener('click', () => {
-    getElement('studio-input').scrollIntoView({
+  getElement('start-comparison')?.addEventListener('click', () => {
+    getElement('studio-input')?.scrollIntoView({
       behavior: preference.matches ? 'auto' : 'smooth',
       block: 'start',
     });
-    getElement('dropzone').focus({ preventScroll: true });
+    getElement('dropzone')?.focus({ preventScroll: true });
   });
 
   if (typeof IntersectionObserver === 'function') {
@@ -935,8 +920,8 @@ function initializePresentation() {
     observer.observe(hero);
   }
 
-  preference.addEventListener?.('change', updateMotionControls);
-  updateMotionControls();
+  preference.addEventListener?.('change', updateMotionPreference);
+  updateMotionPreference();
 }
 
 initializePresentation();

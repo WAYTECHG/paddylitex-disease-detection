@@ -7,13 +7,14 @@
       name="description"
       content="Paddy disease detection: compare YOLOv8n, Yolov8n_DenseNet121 and DenseLiteX predictions and research benchmarks."
     />
-    <title>PaddyLiteX · Thesis II</title>
+    <title>PaddyLiteX · Paddy Disease Detection</title>
     <link rel="icon" href="./favicon.svg" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./charts.css?v=baseline1-charts-20261013" />
     <script src="./browser-runtime.js?v=baseline1-charts-20261013" defer></script>
     <script src="./charts.js?v=baseline1-charts-20261013" defer></script>
-    <script src="./app.js?v=baseline1-charts-20261013" defer></script>
+    <script src="./app.js?v=branding-20261014" defer></script>
+    <link rel="stylesheet" href="./branding.css?v=branding-20261014" />
   </head>
   <body>
     <header class="topbar">
@@ -21,7 +22,6 @@
         <span class="brandmark"><img src="./favicon.svg" alt="" aria-hidden="true" /></span>
         <span>
           PaddyLiteX
-          <small>THESIS II</small>
         </span>
       </a>
       <nav class="tabs" aria-label="Main views">
@@ -30,7 +30,11 @@
         </button>
         <button class="tab" data-view="benchmarks" aria-selected="false">Model benchmarks</button>
       </nav>
-      <span class="research">XMUM · AI Engineering</span>
+      <span class="research">
+        <img class="xmum-logo" src="./assets/xmum-logo.png"
+             alt="Xiamen University Malaysia logo" width="40" height="40" />
+        <span class="research-label">XMUM · AI Engineering</span>
+      </span>
     </header>
     <main>
       <section id="workspace" class="view active">
@@ -159,13 +163,7 @@
               PaddyLiteX
               <span>RESEARCH IN ACTION</span>
             </span>
-            <div class="hero-motion-controls">
-              <button id="replay-intro">
-                <span aria-hidden="true">↻</span>
-                Replay intro
-              </button>
-              <button id="toggle-motion" aria-pressed="false">Pause motion</button>
-            </div>
+            
           </div>
         </section>
 
@@ -173,7 +171,7 @@
           <div>
             <p class="eyebrow">PADDY DISEASE DETECTION</p>
             <h2 class="studio-title">Detection studio</h2>
-            <p class="muted">Compare your baselines and proposed model on the same image.</p>
+            <p class="muted">Compare your baseline, initial proposed and final proposed models on the same image.</p>
           </div>
           <span class="pill" id="service-status">Checking model availability</span>
         </div>
@@ -395,24 +393,24 @@
         </section>
         <div class="insight-grid">
           <div class="insight">
-            <small>Against Yolov8n_DenseNet121 baseline</small>
+            <small>Against Yolov8n_DenseNet121 (initial proposed)</small>
             <strong id="map-improvement">-0.25%</strong>
             <p>mAP@0.5:0.95 score difference</p>
             <p class="insight-values" id="map5095-change">56.08% → 55.83%</p>
           </div>
           <div class="insight">
-            <small>Against Yolov8n_DenseNet121 baseline</small>
+            <small>Against Yolov8n_DenseNet121 (initial proposed)</small>
             <strong id="map50-improvement">+0.98%</strong>
             <p>mAP@0.5 score difference</p>
             <p class="insight-values" id="map50-change">80.69% → 81.67%</p>
           </div>
           <div class="insight">
-            <small>Against Yolov8n_DenseNet121 baseline</small>
+            <small>Against Yolov8n_DenseNet121 (initial proposed)</small>
             <strong id="parameter-reduction">68.01% fewer</strong>
             <p>parameters</p>
           </div>
           <div class="insight">
-            <small>Against Yolov8n_DenseNet121 baseline</small>
+            <small>Against Yolov8n_DenseNet121 (initial proposed)</small>
             <strong id="flops-reduction">72.59% fewer</strong>
             <p>reported GFLOPs</p>
           </div>
@@ -423,7 +421,7 @@
               <p class="eyebrow">CLASS-LEVEL DETECTION PERFORMANCE</p>
               <h2 id="class-heading">Every class, three perspectives.</h2>
               <p class="muted">
-                Compare your two baselines and final proposed model for each class.
+                Compare your baseline, initial proposed and final proposed models for each class.
               </p>
             </div>
             <button class="secondary" id="download-class-csv" disabled>Export class CSV</button>
@@ -487,7 +485,7 @@
         </section>
       </section>
       <footer>
-        <span>PaddyLiteX · Thesis II demonstration</span>
+        <span>PaddyLiteX</span>
         <span>AIT2309246</span>
       </footer>
     </main>
