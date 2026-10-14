@@ -1,0 +1,331 @@
+/* A compact diagram linking one input with three model perspectives. */
+.guidance {
+  justify-content: flex-start;
+  gap: 22px;
+}
+
+.guidance .model-list {
+  margin: auto 0 0;
+}
+
+.comparison-guide {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #ffffffbd;
+  border-radius: 22px;
+  background:
+    radial-gradient(ellipse at 8% 25%, #c5eddb85, transparent 58%),
+    linear-gradient(135deg, #ffffffc9, #f7f9ffb8);
+  box-shadow: 0 12px 30px #23455b08, inset 0 1px 0 #ffffff;
+}
+
+.guide-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.guide-kicker {
+  display: block;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 1.2px;
+  color: #35765f;
+}
+
+.guide-heading h3 {
+  margin: 6px 0 0;
+  font-size: 21px;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+}
+
+.guide-preview-label {
+  padding: 5px 8px;
+  border: 1px solid #dbe7e9;
+  border-radius: 20px;
+  font-size: 10px;
+  color: #65768b;
+  text-align: center;
+}
+
+.guide-flow {
+  display: grid;
+  grid-template-columns: minmax(85px, 0.8fr) 45px minmax(0, 1.5fr);
+  align-items: center;
+  gap: 0;
+  margin: 20px 0;
+}
+
+.guide-input {
+  min-width: 0;
+  text-align: center;
+}
+
+.guide-leaf-frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  max-width: 130px;
+  height: 145px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #b9dec9;
+  border-radius: 19px;
+  background: linear-gradient(160deg, #ecfff2, #d5eee3);
+  box-shadow: inset 0 0 25px #ffffff99;
+}
+
+.guide-leaf {
+  width: 90px;
+  height: 110px;
+  filter: drop-shadow(0 8px 7px #18644522);
+}
+
+.guide-scan {
+  position: absolute;
+  top: 13%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: #3fbd92;
+  box-shadow: 0 0 10px 2px #6bdca452;
+  animation: guide-scan 5s ease-in-out infinite;
+}
+
+.guide-input-label {
+  display: block;
+  margin-top: 9px;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #5c7480;
+}
+
+.guide-branches {
+  height: 180px;
+}
+
+.guide-branches svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.guide-branches path {
+  fill: none;
+  stroke: #a5bec7;
+  stroke-width: 1.5;
+}
+
+.guide-route-dot {
+  animation: guide-route 4s ease-in-out infinite;
+}
+
+.route-blue {
+  fill: #4277ef;
+}
+
+.route-purple {
+  fill: #8265d5;
+  animation-delay: 0.45s;
+}
+
+.route-green {
+  fill: #129a70;
+  animation-delay: 0.9s;
+}
+
+.guide-model-paths {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.guide-model-path {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 56px;
+  padding: 10px 11px;
+  border: 1px solid var(--guide-border);
+  border-radius: 13px;
+  background: var(--guide-background);
+}
+
+.path-blue {
+  --guide-color: #4277ef;
+  --guide-border: #cfddfa;
+  --guide-background: #eef4ff;
+}
+
+.path-purple {
+  --guide-color: #8265d5;
+  --guide-border: #ddd4f4;
+  --guide-background: #f4effc;
+}
+
+.path-green {
+  --guide-color: #129a70;
+  --guide-border: #c2e7d9;
+  --guide-background: #eaf8f0;
+}
+
+.guide-path-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--guide-color);
+}
+
+.guide-model-path span:not(.guide-path-dot) {
+  display: block;
+  font-size: 10px;
+  color: #5d6c83;
+}
+
+.guide-model-path strong {
+  display: block;
+  margin-top: 1px;
+  font-size: 11px;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.guide-settings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.guide-settings > span {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 1px solid #dce6ec;
+  border-radius: 10px;
+  background: #ffffffb5;
+  color: #5a6b7e;
+  font-size: 11px;
+}
+
+.guide-settings strong {
+  color: #21384f;
+  font-variant-numeric: tabular-nums;
+}
+
+.guide-setting-icon {
+  color: #239579;
+  font-size: 15px;
+}
+
+.guide-output-key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 15px;
+  margin-top: 17px;
+  padding-top: 14px;
+  border-top: 1px solid #dbe6eb;
+}
+
+.guide-output-key > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: #697c8a;
+}
+
+.guide-output-key strong {
+  color: #40536a;
+}
+
+.guide-output-key i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 1px;
+}
+
+.guide-box-symbol {
+  border: 1.5px solid #4277ef;
+  border-radius: 2px;
+}
+
+.guide-label-symbol {
+  border-radius: 2px 5px 5px 2px;
+  background: #8265d5;
+}
+
+.guide-score-symbol {
+  border-radius: 50%;
+  background: #129a70;
+}
+
+.guide-benchmarks-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #246f63;
+  font-size: 11px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.guide-benchmarks-link:hover {
+  color: #154d43;
+}
+
+.guide-benchmarks-link span {
+  transition: transform 0.2s;
+}
+
+.guide-benchmarks-link:hover span {
+  transform: translate(2px, -2px);
+}
+
+@keyframes guide-scan {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(95px); opacity: 1; }
+}
+
+@keyframes guide-route {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+@media (max-width: 1050px) and (min-width: 721px) {
+  .comparison-guide { padding: 17px; }
+  .guide-heading { flex-wrap: wrap; }
+  .guide-flow { grid-template-columns: 75px 24px minmax(0, 1fr); }
+  .guide-leaf-frame { height: 130px; }
+  .guide-leaf { width: 65px; }
+  .guide-model-path { padding: 9px; }
+}
+
+@media (max-width: 420px) {
+  .comparison-guide { padding: 17px; }
+  .guide-heading { flex-wrap: wrap; }
+  .guide-flow { grid-template-columns: 75px 24px minmax(0, 1fr); }
+  .guide-leaf-frame { height: 130px; }
+  .guide-leaf { width: 65px; }
+  .guide-model-path { padding: 9px; gap: 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comparison-guide *,
+  .comparison-guide *::before,
+  .comparison-guide *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}

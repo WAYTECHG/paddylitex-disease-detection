@@ -15,6 +15,8 @@
     <script src="./charts.js?v=baseline1-charts-20261013" defer></script>
     <script src="./app.js?v=branding-20261014" defer></script>
     <link rel="stylesheet" href="./branding.css?v=branding-20261014" />
+    <link rel="stylesheet" href="./comparison-guide.css?v=comparison-guide-20261014" />
+    <script src="./comparison-guide.js?v=comparison-guide-20261014" defer></script>
   </head>
   <body>
     <header class="topbar">
@@ -261,6 +263,73 @@
                 bounding boxes, predicted classes and confidence side by side.
               </p>
             </div>
+            <section class="comparison-guide" id="comparison-guide" aria-labelledby="guide-title">
+              <div class="guide-heading">
+                <div>
+                  <span class="guide-kicker">ONE IMAGE · THREE PERSPECTIVES</span>
+                  <h3 id="guide-title">Follow the same leaf.</h3>
+                </div>
+                <span class="guide-preview-label">Workflow illustration</span>
+              </div>
+
+              <div class="guide-flow">
+                <div class="guide-input">
+                  <div class="guide-leaf-frame" aria-hidden="true">
+                    <svg viewBox="0 0 120 140" class="guide-leaf">
+                      <defs>
+                        <linearGradient id="guide-leaf-fill" x1="0" y1="1" x2="1" y2="0">
+                          <stop offset="0" stop-color="#168367" />
+                          <stop offset="1" stop-color="#9de9ab" />
+                        </linearGradient>
+                      </defs>
+                      <path d="M31 113C19 71 45 27 96 12c4 54-22 88-65 101Z" fill="url(#guide-leaf-fill)" />
+                      <path d="M24 128 88 25M48 94 72 89M59 74 81 69M69 55 88 51M48 94 41 71M59 74 53 53" fill="none" stroke="#e1ffe9" stroke-width="2.4" stroke-linecap="round" />
+                    </svg>
+                    <span class="guide-scan"></span>
+                  </div>
+                  <span class="guide-input-label">Your uploaded image</span>
+                </div>
+
+                <div class="guide-branches" aria-hidden="true">
+                  <svg viewBox="0 0 80 180" preserveAspectRatio="none">
+                    <path d="M0 90H25Q39 90 39 76V34Q39 22 53 22H80M0 90H80M0 90H25Q39 90 39 104V146Q39 158 53 158H80" />
+                    <circle class="guide-route-dot route-blue" cx="70" cy="22" r="3.5" />
+                    <circle class="guide-route-dot route-purple" cx="70" cy="90" r="3.5" />
+                    <circle class="guide-route-dot route-green" cx="70" cy="158" r="3.5" />
+                  </svg>
+                </div>
+
+                <div class="guide-model-paths">
+                  <div class="guide-model-path path-blue">
+                    <span class="guide-path-dot"></span>
+                    <div><span>Baseline</span><strong>YOLOv8n</strong></div>
+                  </div>
+                  <div class="guide-model-path path-purple">
+                    <span class="guide-path-dot"></span>
+                    <div><span>Initial proposed</span><strong>DenseNet121</strong></div>
+                  </div>
+                  <div class="guide-model-path path-green">
+                    <span class="guide-path-dot"></span>
+                    <div><span>Proposed</span><strong>DenseLiteX + SPPF + C2PSA</strong></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="guide-settings" aria-label="Current comparison settings">
+                <span><span class="guide-setting-icon" aria-hidden="true">▦</span> Input <strong id="guide-input-size">512 × 512</strong></span>
+                <span><span class="guide-setting-icon" aria-hidden="true">◉</span> Threshold <strong id="guide-confidence">25%</strong></span>
+              </div>
+
+              <div class="guide-output-key" aria-label="How to read detection results">
+                <span><i class="guide-box-symbol" aria-hidden="true"></i><strong>Boxes</strong> locate regions</span>
+                <span><i class="guide-label-symbol" aria-hidden="true"></i><strong>Labels</strong> name classes</span>
+                <span><i class="guide-score-symbol" aria-hidden="true"></i><strong>Scores</strong> show confidence</span>
+              </div>
+
+              <button class="guide-benchmarks-link" data-view="benchmarks" type="button">
+                Explore model benchmarks <span aria-hidden="true">↗</span>
+              </button>
+            </section>
             <div class="model-list" id="model-list"></div>
           </section>
         </div>
