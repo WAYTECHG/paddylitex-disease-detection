@@ -1,35 +1,56 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title description">
-  <title id="title">PaddyLiteX — Paddy Disease Detection</title>
-  <desc id="description">A green rice leaf emblem on a navy research banner. Final Year Thesis, nine-class detection, DenseLiteX, SPPF and C2PSA.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">
+  <title id="title">PaddyLiteX — Efficient Paddy Leaf Disease Detection</title>
+  <desc id="desc">Green and gold research banner. DenseLiteX, SPPF and C2PSA form a nine-class rice leaf detector. Reported proposed-model results: 81.67 percent mAP at IoU 0.5 and 2.88 million parameters.</desc>
   <defs>
-    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#091c2c"/>
-      <stop offset="1" stop-color="#123e3d"/>
-    </linearGradient>
-    <linearGradient id="leaf" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#11b88b"/>
-      <stop offset="1" stop-color="#a5ef9b"/>
-    </linearGradient>
-    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
-      <path d="M36 0H0V36" fill="none" stroke="#8ce0c2" stroke-opacity=".06"/>
-    </pattern>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#071f1c"/><stop offset=".65" stop-color="#103c32"/><stop offset="1" stop-color="#176149"/></linearGradient>
+    <linearGradient id="leaf" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#2eb882"/><stop offset="1" stop-color="#c0ed9b"/></linearGradient>
+    <linearGradient id="edge"><stop stop-color="#69d3a4"/><stop offset="1" stop-color="#f3cf77"/></linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#b0eccb" stroke-opacity=".045"/></pattern>
   </defs>
-  <rect width="1200" height="360" rx="24" fill="url(#background)"/>
-  <rect width="1200" height="360" rx="24" fill="url(#grid)"/>
-  <circle cx="1110" cy="60" r="210" fill="#26b790" opacity=".06"/>
-  <circle cx="1030" cy="332" r="132" fill="#80e0b1" opacity=".04"/>
-  <rect x="62" y="97" width="160" height="166" rx="36" fill="#17443f" stroke="#76dab2" stroke-opacity=".3"/>
-  <path d="M104 225C85 178 115 139 178 124C179 178 153 220 104 225Z" fill="url(#leaf)"/>
-  <path d="M102 237C115 200 135 169 165 142" fill="none" stroke="#e1ffe9" stroke-width="5" stroke-linecap="round"/>
-  <path d="M125 194L116 166M141 173L165 169" fill="none" stroke="#e1ffe9" stroke-width="3" stroke-linecap="round" opacity=".7"/>
-  <text x="270" y="93" fill="#8de6bb" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="3">FINAL YEAR THESIS · XMUM</text>
-  <text x="266" y="170" fill="#f4fff9" font-family="Arial, Helvetica, sans-serif" font-size="66" font-weight="700" letter-spacing="-2">PaddyLiteX</text>
-  <text x="270" y="212" fill="#bfdbd6" font-family="Arial, Helvetica, sans-serif" font-size="24">Efficient paddy leaf disease detection</text>
-  <rect x="270" y="246" width="178" height="34" rx="17" fill="#205447"/>
-  <text x="359" y="268" text-anchor="middle" fill="#c9f4da" font-family="Arial, Helvetica, sans-serif" font-size="14">9 detection classes</text>
-  <rect x="461" y="246" width="250" height="34" rx="17" fill="#244754"/>
-  <text x="586" y="268" text-anchor="middle" fill="#d1edf4" font-family="Arial, Helvetica, sans-serif" font-size="14">DenseLiteX + SPPF + C2PSA</text>
-  <path d="M954 143h-20v-20M1034 143h20v-20M954 223h-20v20M1034 223h20v20" fill="none" stroke="#7ae0ac" stroke-width="4" stroke-linecap="round"/>
-  <path d="M973 214C958 178 979 152 1024 143C1025 183 1007 211 973 214Z" fill="url(#leaf)" opacity=".72"/>
-  <path d="M973 219L1012 157" stroke="#c8f7d9" stroke-width="3" stroke-linecap="round"/>
+  <rect width="1280" height="400" rx="26" fill="url(#bg)"/>
+  <rect width="1280" height="400" rx="26" fill="url(#grid)"/>
+  <circle cx="1144" cy="200" r="212" fill="#88d998" fill-opacity=".035"/>
+  <circle cx="1144" cy="200" r="152" fill="none" stroke="#a5e9c2" stroke-opacity=".09"/>
+  <g font-family="Segoe UI,Arial,sans-serif">
+    <rect x="48" y="34" width="272" height="29" rx="14" fill="#9fe1b8" fill-opacity=".10" stroke="#9fe1b8" stroke-opacity=".17"/>
+    <circle cx="66" cy="48" r="4" fill="#f2d58c"/>
+    <text x="80" y="53" fill="#d2e9d8" font-size="11" font-weight="600" letter-spacing="1.7">COMPUTER VISION · FYP RESEARCH</text>
+    <text x="44" y="139" fill="#f6fbf3" font-size="72" font-weight="750" letter-spacing="-3">PaddyLite<tspan fill="#f3cf77">X</tspan></text>
+    <text x="48" y="183" fill="#e2efe0" font-size="26" font-weight="500">Efficient paddy leaf disease detection.</text>
+    <text x="49" y="219" fill="#a8c9bb" font-size="16">Dense feature reuse. Spatial pooling. Attention refinement.</text>
+    <g font-size="12" font-weight="600" letter-spacing=".6">
+      <rect x="49" y="246" width="127" height="31" rx="8" fill="#e6f9e9" fill-opacity=".075"/><text x="68" y="266" fill="#cae6d5">DenseLiteX</text>
+      <path d="M185 262h19m-6-5 6 5-6 5" stroke="#8cb9a5" fill="none" stroke-width="1.5"/>
+      <rect x="216" y="246" width="78" height="31" rx="8" fill="#e6f9e9" fill-opacity=".075"/><text x="237" y="266" fill="#cae6d5">SPPF</text>
+      <path d="M303 262h19m-6-5 6 5-6 5" stroke="#8cb9a5" fill="none" stroke-width="1.5"/>
+      <rect x="334" y="246" width="88" height="31" rx="8" fill="#f3cf77" fill-opacity=".12"/><text x="354" y="266" fill="#f5d990">C2PSA</text>
+    </g>
+    <path d="M49 302h655" stroke="#c6e3cc" stroke-opacity=".16"/>
+    <g>
+      <text x="49" y="345" fill="#f6fbf3" font-size="29" font-weight="700">81.67<tspan font-size="19" fill="#f3cf77">%</tspan></text>
+      <text x="49" y="371" fill="#a8c9bb" font-size="11" letter-spacing="1.1">REPORTED mAP@0.5</text>
+      <path d="M235 324v47" stroke="#c6e3cc" stroke-opacity=".16"/>
+      <text x="267" y="345" fill="#f6fbf3" font-size="29" font-weight="700">2.88<tspan font-size="19" fill="#f3cf77">M</tspan></text>
+      <text x="267" y="371" fill="#a8c9bb" font-size="11" letter-spacing="1.1">MODEL PARAMETERS</text>
+      <path d="M461 324v47" stroke="#c6e3cc" stroke-opacity=".16"/>
+      <text x="493" y="345" fill="#f6fbf3" font-size="29" font-weight="700">9<tspan font-size="19" fill="#f3cf77"> classes</tspan></text>
+      <text x="493" y="371" fill="#a8c9bb" font-size="11" letter-spacing="1.1">BOUNDING-BOX DETECTION</text>
+    </g>
+    <g transform="translate(860 48)">
+      <rect width="334" height="286" rx="22" fill="#061f1a" fill-opacity=".3" stroke="#91d4af" stroke-opacity=".18"/>
+      <path d="M33 53V27h28m211 0h28v26m0 180v26h-28M61 259H33v-26" stroke="url(#edge)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M159 242Q87 183 85 82q72 58 74 160Z" fill="url(#leaf)" opacity=".65"/>
+      <path d="M161 242Q151 96 241 47q-11 118-80 195Z" fill="url(#leaf)"/>
+      <path d="M162 243Q215 139 279 123q-37 89-117 120Z" fill="#5ccb91" opacity=".76"/>
+      <path d="M161 247Q189 126 238 53m-77 194Q111 152 89 89m72 158q54-78 112-118" stroke="#d0efb1" stroke-width="1.5" opacity=".6" fill="none"/>
+      <ellipse cx="205" cy="119" rx="7" ry="13" transform="rotate(25 205 119)" fill="#c09d43"/>
+      <ellipse cx="214" cy="100" rx="4" ry="8" transform="rotate(25 214 100)" fill="#efd88a"/>
+      <rect x="179" y="77" width="62" height="68" rx="5" fill="none" stroke="#f3cf77" stroke-width="2"/>
+      <rect x="179" y="61" width="103" height="19" rx="4" fill="#f3cf77"/>
+      <text x="187" y="74" fill="#193b2c" font-size="9" font-weight="700">DISEASE REGION</text>
+      <path d="M49 164h236" stroke="#b9edcc" stroke-opacity=".28" stroke-width="1"/>
+      <text x="167" y="278" text-anchor="middle" fill="#8db9a4" font-size="8" letter-spacing="1.4">CONCEPTUAL DETECTION ILLUSTRATION</text>
+    </g>
+    <text x="1192" y="369" text-anchor="end" fill="#b2cfbc" font-size="10" letter-spacing="1.2">DENSE BACKBONE · YOLOv8 NECK + HEAD</text>
+  </g>
 </svg>
