@@ -1,111 +1,228 @@
-<p align="center">
-  <img src="assets/paddylitex-banner.svg" alt="PaddyLiteX — Efficient Paddy Leaf Disease Detection" width="100%">
-</p>
+<div align="center">
 
-<p align="center">
-  <a href="https://paddylitex.onrender.com/"><img src="https://img.shields.io/badge/Live_Demo-Render-149a73?style=for-the-badge" alt="Live demo on Render"></a>
-  <a href="https://huggingface.co/spaces/Wizzas/PaddyLiteX"><img src="https://img.shields.io/badge/Hugging_Face-Space-f1bd45?style=for-the-badge" alt="Hugging Face Space"></a>
-  <img src="https://img.shields.io/badge/Research-Final_Year_Thesis-4277ef?style=for-the-badge" alt="Final Year Thesis">
-</p>
+  <img src="assets/paddylitex-banner.svg" alt="PaddyLiteX — Efficient Paddy Leaf Disease Detection" width="100%" />
 
-# PaddyLiteX: Efficient Paddy Leaf Disease Detection
+  <p><strong>A lightweight dense backbone for nine-class paddy leaf disease detection.</strong></p>
+  <p>Custom model design · controlled architecture comparisons · browser-based inference</p>
 
-**My final year thesis project** for the Bachelor of Engineering in Artificial Intelligence at **Xiamen University Malaysia**, developed by **Wilbert Andrew Yonathan (AIT2309246)**.
+  <a href="https://paddylitex.onrender.com/"><img src="https://img.shields.io/badge/Live_demo-Render-17634B?style=for-the-badge&amp;logo=render&amp;logoColor=white" alt="Live demo on Render" /></a>
+  <a href="https://huggingface.co/spaces/Wizzas/PaddyLiteX"><img src="https://img.shields.io/badge/Interactive_demo-Hugging_Face-E4BB59?style=for-the-badge&amp;logo=huggingface&amp;logoColor=192F27" alt="PaddyLiteX on Hugging Face" /></a>
+  <img src="https://img.shields.io/badge/Research-Final_Year_Thesis-325D4C?style=for-the-badge" alt="Final year thesis research" />
+  <br />
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Example setup: Python 3.11" />
+  <img src="https://img.shields.io/badge/PyTorch-2.5.1-EE4C2C?style=flat-square&amp;logo=pytorch&amp;logoColor=white" alt="Example setup: PyTorch 2.5.1" />
+  <img src="https://img.shields.io/badge/YOLO-v8n-5365D9?style=flat-square" alt="YOLOv8n-based detector" />
+  <img src="https://img.shields.io/badge/Backbone-DenseLiteX-17634B?style=flat-square" alt="Custom DenseLiteX backbone" />
+  <img src="https://img.shields.io/badge/ONNX_Runtime-Web-6B5A9E?style=flat-square&amp;logo=onnx&amp;logoColor=white" alt="ONNX Runtime Web" />
 
-PaddyLiteX investigates a lightweight DenseNet-based backbone for nine-class paddy leaf disease detection. The proposed model combines **DenseLiteX, Spatial Pyramid Pooling Fast (SPPF) and C2PSA attention** within a YOLOv8n-based detector. This repository contains the custom model implementation, architecture configurations, training and evaluation scripts, and an interactive comparison website.
+  <p>
+    <a href="#overview">Overview</a> ·
+    <a href="#architecture">Architecture</a> ·
+    <a href="#reported-results">Results</a> ·
+    <a href="#ablation-studies">Ablations</a> ·
+    <a href="#dataset">Dataset</a> ·
+    <a href="#quick-start">Quick start</a> ·
+    <a href="#interactive-demo">Demo</a>
+  </p>
 
-**[Try the live demo on Render](https://paddylitex.onrender.com/)** · **[Try it on Hugging Face](https://huggingface.co/spaces/Wizzas/PaddyLiteX)**
+  <p><strong>Wilbert Andrew Yonathan</strong><br />Bachelor of Engineering in Artificial Intelligence · Xiamen University Malaysia</p>
 
-## Problem Statement
+</div>
 
-Paddy leaf disease identification requires distinguishing symptoms that can vary in appearance, size and position within an image. Object detection can identify both the disease category and the affected region, but the detector must balance prediction quality with computational cost.
+## Overview
 
-A DenseNet121-based backbone provides dense feature reuse, but the evaluated integration is substantially larger and more computationally demanding than the original YOLOv8n baseline. This study investigates whether a smaller dense backbone, supported by spatial pooling and attention, can retain useful detection performance while reducing that cost.
+PaddyLiteX studies how to retain useful disease-detection performance while
+reducing the cost of a DenseNet121-based YOLOv8n integration. Its proposed
+detector combines a custom **DenseLiteX backbone**, **Spatial Pyramid Pooling
+Fast (SPPF)** and **C2PSA attention**, followed by a YOLOv8-style neck and
+three-scale detection head.
 
-## Research Objectives
+The repository brings together custom model modules, architecture configurations,
+training and evaluation scripts, component ablations and an interactive website
+for comparing predictions on the same uploaded image.
 
-1. Implement and evaluate YOLOv8n and YOLOv8n_DenseNet121 as detection baselines on the same nine-class paddy dataset.
-2. Develop DenseLiteX by reducing dense-block depth, growth rate and bottleneck expansion, and integrate SPPF and C2PSA into the proposed detector.
-3. Assess precision, recall, mAP@0.5, mAP@0.5:0.95, parameters and GFLOPs through baseline comparisons and component ablation studies.
-4. Present the trained models in a public demo that compares predictions on the same uploaded image and visualizes evaluation results.
+| Architecture research | Measured comparison | Interactive application |
+|---|---|---|
+| Reduced dense-block depth, growth rate and bottleneck expansion | Precision, recall, mAP, parameters and GFLOPs | Baseline and proposed predictions on one image |
+| DenseLiteX with SPPF and C2PSA refinement | Two baselines and two component-ablation groups | Annotated boxes, metric charts and class-level comparisons |
+| P3, P4 and P5 features for three-scale detection | 803 test images and 2,466 annotated objects | Exported ONNX models executed in the browser |
 
-## Proposed Method
+> **The central result:** compared with the evaluated DenseNet121 baseline, the
+> proposed detector uses **68.01% fewer parameters** and **72.59% lower reported
+> GFLOPs**, with **0.98 percentage points higher mAP@0.5**. This is a measured
+> trade-off: it does not outperform every baseline on every metric.
 
-**YOLOv8n_DenseLiteX_SPPF_C2PSA** uses a custom dense backbone with:
+## Architecture
 
-| Component | Configuration / purpose |
-|---|---|
-| DenseLiteX | Growth rate **20**, dense blocks **[6, 8, 12, 6]**, bottleneck multiplier **2**, dropout **0.0** |
-| Backbone outputs | P3/8, P4/16 and P5/32, projected to **64, 128 and 256 channels** |
-| SPPF | Spatial pooling on the P5 feature map |
-| C2PSA | Attention refinement after SPPF |
-| Feature aggregation | YOLOv8-style top-down and bottom-up paths with **one internal C2f repeat** in each aggregation block |
-| Detection head | Three-scale detection for **nine classes** |
+### Proposed detector: DenseLiteX + SPPF + C2PSA
 
-The custom DenseNet-family implementation is in [`ultralytics/nn/modules/densenet.py`](ultralytics/nn/modules/densenet.py). The final model configuration is [`cfg/training/yolov8n_denselitex_sppf_c2psa.yaml`](cfg/training/yolov8n_denselitex_sppf_c2psa.yaml).
+**Model configuration:** `YOLOv8n_DenseLiteX_SPPF_C2PSA`.
 
-DenseLiteX is the backbone configuration developed in this project. SPPF, C2PSA and the underlying YOLO components are existing methods; this thesis studies their integration and the resulting performance–complexity trade-off.
+The dense backbone reuses features through concatenation. Its three projected
+outputs enter the YOLOv8-style feature pyramid; the deepest output is refined by
+SPPF and C2PSA before aggregation.
 
-## Main Results
+```mermaid
+flowchart LR
+    I["Rice leaf image<br/>640 × 640 × 3"] --> B["DenseLiteX backbone<br/>blocks 6 / 8 / 12 / 6 · growth rate 20"]
+    B --> P3["P3 · stride 8<br/>80 × 80 × 64"]
+    B --> P4["P4 · stride 16<br/>40 × 40 × 128"]
+    B --> P5["P5 · stride 32<br/>20 × 20 × 256"]
+    P5 --> S["SPPF"] --> A["C2PSA"]
+    P3 --> N["YOLOv8 neck<br/>top-down + bottom-up aggregation"]
+    P4 --> N
+    A --> N
+    N --> H["Three-scale detect head<br/>strides 8 / 16 / 32"]
+    H --> O["Bounding boxes<br/>+ nine-class predictions"]
+    classDef input fill:#F2F6F0,stroke:#879B7C,color:#26372C
+    classDef backbone fill:#E4F2E8,stroke:#39835B,color:#173F2D
+    classDef refinement fill:#FFF2D2,stroke:#C9A348,color:#624C1B
+    classDef detector fill:#EAEFF8,stroke:#7089AF,color:#263E60
+    class I,O input
+    class B,P3,P4,P5 backbone
+    class S,A refinement
+    class N,H detector
+```
 
-Reported evaluation uses **803 test images**, **2,466 annotated objects** and **nine classes**. The custom-model results below correspond to the updated **C2f × 1** configurations.
+<a href="assets/architecture-denselitex.png"><img src="assets/architecture-denselitex.png" alt="Proposed DenseLiteX backbone with four dense blocks, P3/P4/P5 projections, SPPF, C2PSA, YOLOv8 neck and three-scale detection head" width="100%" /></a>
 
-| Model | Role | Precision (%) | Recall (%) | mAP@0.5 (%) | mAP@0.5:0.95 (%) | Parameters | GFLOPs |
-|---|---|---:|---:|---:|---:|---:|---:|
-| YOLOv8n | Baseline 1 | 83.68 | 76.61 | 80.79 | 54.66 | 3,007,403 | 8.1 |
-| YOLOv8n_DenseNet121 | Baseline 2 | 84.71 | 74.79 | 80.69 | 56.08 | 9,002,123 | 51.8 |
-| YOLOv8n_DenseLiteX_SPPF_C2PSA | Proposed | 83.29 | 75.67 | 81.67 | 55.83 | 2,879,917 | 14.2 |
+*Proposed architecture supplied with the thesis. Select the image to inspect the
+full-resolution diagram. Diagrams illustrate the design; the model YAMLs and
+custom modules define the executable implementation.*
 
-Compared with **Baseline 2**, the proposed model achieves:
+| Component | Proposed configuration | Purpose |
+|---|---|---|
+| DenseLiteX | Blocks **[6, 8, 12, 6]**; growth rate **20** | Dense feature reuse with reduced backbone size |
+| Dense layers | Bottleneck multiplier **2**; dropout **0.0** | Compact intermediate feature transformations |
+| Output projections | **64 / 128 / 256 channels** at strides **8 / 16 / 32** | Match the three neck inputs |
+| SPPF | Deepest P5 feature map | Spatial context aggregation |
+| C2PSA | After SPPF | Attention-based feature refinement |
+| Neck | Top-down and bottom-up paths; **C2f × 1** per aggregation block | Fuse features across scales |
+| Detection head | Three scales; **nine classes** | Predict bounding boxes and class scores |
 
-- **0.98 percentage points higher mAP@0.5**: 80.69% → 81.67%.
-- **68.01% fewer parameters**: 9,002,123 → 2,879,917.
-- **72.59% lower reported GFLOPs**: 51.8 → 14.2.
-- **0.25 percentage points lower mAP@0.5:0.95**: 56.08% → 55.83%.
+**Implementation:** [custom dense modules](ultralytics/nn/modules/densenet.py) ·
+[proposed model YAML](cfg/training/yolov8n_denselitex_sppf_c2psa.yaml).
 
-Compared with **Baseline 1**, the proposed model improves mAP@0.5 by **0.88 percentage points** and mAP@0.5:0.95 by **1.17 percentage points**, with **4.24% fewer parameters**. Its reported GFLOPs are higher, at **14.2 versus 8.1**. The outcome is an efficiency improvement over the DenseNet121-based baseline, rather than a reduction in every cost metric against both baselines.
+### Baseline architectures
 
-## Ablation Studies
+<details>
+<summary><strong>Baseline 1 — YOLOv8n</strong> · expand architecture</summary>
 
-### DenseLiteX Component Ablation
+The original YOLOv8n detector provides the reference for a compact, conventional
+backbone with its feature pyramid and three-scale detection head.
+
+<a href="assets/architecture-yolov8n.png"><img src="assets/architecture-yolov8n.png" alt="Baseline YOLOv8n backbone, SPPF, neck and three-scale detection head" width="100%" /></a>
+
+[Architecture configuration](cfg/training/yolov8n.yaml).
+
+</details>
+
+<details>
+<summary><strong>Baseline 2 — YOLOv8n + DenseNet121</strong> · expand architecture</summary>
+
+This integration uses dense blocks **[6, 12, 24, 16]** and growth rate **32**.
+Projected P3/P4/P5 features feed the detection neck. Its larger backbone provides
+the principal comparison for the proposed reduction in parameters and GFLOPs.
+
+<a href="assets/architecture-densenet121.png"><img src="assets/architecture-densenet121.png" alt="DenseNet121-based YOLOv8n integration with dense blocks, transition layers and output projections" width="100%" /></a>
+
+[Architecture configuration](cfg/training/yolov8n_densenet121.yaml).
+
+</details>
+
+**Contribution boundary:** DenseLiteX is the backbone configuration developed in
+this project. SPPF, C2PSA, dense connectivity and the underlying YOLO components
+are existing methods. The thesis evaluates their integration and resulting
+performance–complexity trade-off.
+
+## Reported results
+
+Evaluation covers **nine classes**, **803 test images** and **2,466 annotated
+objects**. Custom-model results correspond to the updated **C2f × 1**
+configurations. Higher precision, recall and mAP are better; lower parameters
+and GFLOPs indicate lower reported model complexity.
 
 | Model | Precision (%) | Recall (%) | mAP@0.5 (%) | mAP@0.5:0.95 (%) | Parameters | GFLOPs |
 |---|---:|---:|---:|---:|---:|---:|
-| YOLOv8n_DenseLiteX | 82.67 | 71.84 | 78.82 | 49.16 | 2,467,373 | 13.9 |
-| YOLOv8n_DenseLiteX_SPPF | 83.67 | 73.82 | 79.94 | 53.92 | 2,631,597 | 14.0 |
-| YOLOv8n_DenseLiteX_C2PSA | 78.95 | 73.47 | 78.39 | 50.82 | 2,715,693 | 14.1 |
-| YOLOv8n_DenseLiteX_SPPF_C2PSA | 83.29 | 75.67 | 81.67 | 55.83 | 2,879,917 | 14.2 |
+| YOLOv8n · Baseline 1 | 83.68 | **76.61** | 80.79 | 54.66 | 3,007,403 | **8.1** |
+| YOLOv8n + DenseNet121 · Baseline 2 | **84.71** | 74.79 | 80.69 | **56.08** | 9,002,123 | 51.8 |
+| **DenseLiteX + SPPF + C2PSA · Proposed** | 83.29 | 75.67 | **81.67** | 55.83 | **2,879,917** | 14.2 |
 
-The combined DenseLiteX + SPPF + C2PSA configuration has the highest mAP@0.5, mAP@0.5:0.95 and recall within this four-model group. C2PSA alone decreases mAP@0.5 relative to DenseLiteX, while its addition after SPPF improves the score. This is consistent with a possible component interaction; the single-run results do not establish its statistical reliability or mechanism.
+### What the comparison shows
 
-### DenseNet121 Component Ablation
+| Proposed model compared with | mAP@0.5 | mAP@0.5:0.95 | Parameters | Reported GFLOPs |
+|---|---:|---:|---:|---:|
+| YOLOv8n baseline | +0.88 pp | +1.17 pp | 4.24% fewer | 75.31% higher |
+| DenseNet121 baseline | +0.98 pp | −0.25 pp | 68.01% fewer | 72.59% lower |
 
-| Model | Precision (%) | Recall (%) | mAP@0.5 (%) | mAP@0.5:0.95 (%) | Parameters | GFLOPs |
+The proposed model offers lower complexity than the DenseNet121 integration.
+Against the original YOLOv8n, it has slightly fewer parameters and higher mAP,
+but **higher GFLOPs**, slightly lower precision and slightly lower recall.
+GFLOPs do not establish wall-clock inference speed; no measured latency or FPS
+advantage is claimed here.
+
+## Ablation studies
+
+### DenseLiteX components
+
+| Configuration | Precision (%) | Recall (%) | mAP@0.5 (%) | mAP@0.5:0.95 (%) | Parameters | GFLOPs |
 |---|---:|---:|---:|---:|---:|---:|
-| YOLOv8n_DenseNet121 | 84.71 | 74.79 | 80.69 | 56.08 | 9,002,123 | 51.8 |
-| YOLOv8n_DenseNet121_SPPF | 85.46 | 77.80 | 81.92 | 57.18 | 9,166,347 | 51.9 |
-| YOLOv8n_DenseNet121_C2PSA | 87.19 | 76.51 | 82.55 | 57.75 | 9,250,443 | 52.0 |
-| YOLOv8n_DenseNet121_SPPF_C2PSA | 83.81 | 79.01 | 82.25 | 58.30 | 9,414,667 | 52.1 |
+| DenseLiteX | 82.67 | 71.84 | 78.82 | 49.16 | 2,467,373 | 13.9 |
+| DenseLiteX + SPPF | **83.67** | 73.82 | 79.94 | 53.92 | 2,631,597 | 14.0 |
+| DenseLiteX + C2PSA | 78.95 | 73.47 | 78.39 | 50.82 | 2,715,693 | 14.1 |
+| **DenseLiteX + SPPF + C2PSA** | 83.29 | **75.67** | **81.67** | **55.83** | 2,879,917 | 14.2 |
 
-DenseNet121 + C2PSA achieves the highest mAP@0.5 in this group, while DenseNet121 + SPPF + C2PSA achieves the highest mAP@0.5:0.95. These variants remain substantially larger than the proposed lightweight model. The proposed model is selected for its performance–complexity balance, not because it has the highest score across every evaluated architecture.
+The combined configuration leads this group in recall and both mAP metrics.
+C2PSA alone reduces mAP@0.5 relative to DenseLiteX, while adding it after SPPF
+improves the score. This suggests a possible component interaction; one run per
+architecture does not establish a reliable mechanism or statistical significance.
 
-**Evaluation notes:** Precision, recall and mAP are shown as percentages. Absolute score differences are expressed in percentage points; parameter/GFLOP changes are relative percentages. Each architecture has one reported experimental run; variability across training seeds is not available. Parameters and GFLOPs are taken from the reported model summaries. Reproduction should confirm a consistent profiling input size, fusion policy and operation-counting convention. No inference-time benchmark results are claimed here yet.
+<details>
+<summary><strong>DenseNet121 components</strong> · expand the second ablation group</summary>
 
-## Dataset and Classes
+| Configuration | Precision (%) | Recall (%) | mAP@0.5 (%) | mAP@0.5:0.95 (%) | Parameters | GFLOPs |
+|---|---:|---:|---:|---:|---:|---:|
+| DenseNet121 | 84.71 | 74.79 | 80.69 | 56.08 | 9,002,123 | 51.8 |
+| DenseNet121 + SPPF | 85.46 | 77.80 | 81.92 | 57.18 | 9,166,347 | 51.9 |
+| DenseNet121 + C2PSA | **87.19** | 76.51 | **82.55** | 57.75 | 9,250,443 | 52.0 |
+| DenseNet121 + SPPF + C2PSA | 83.81 | **79.01** | 82.25 | **58.30** | 9,414,667 | 52.1 |
 
-Example images are available from the [Rice Leaf Diseases dataset on Kaggle](https://www.kaggle.com/datasets/yusufmurtaza01/rice-leaf-diseases). Reproducing this project's reported detection results requires the same YOLO bounding-box annotations and train/validation/test split; downloading the source images alone does not recreate them.
+DenseNet121 + C2PSA has the highest mAP@0.5 in this group; the combined variant
+has the highest mAP@0.5:0.95. These variants remain substantially larger than the
+proposed model. The proposed detector is selected for its performance–complexity
+balance, not the highest score across every evaluated architecture.
+
+</details>
+
+### Evaluation boundaries
+
+- **Single reported run per architecture.** Training-seed variability and
+  confidence intervals are unavailable.
+- **Percentages versus percentage points.** Metric differences use percentage
+  points; parameter and GFLOP changes use relative percentages.
+- **Profiling consistency matters.** Parameter and GFLOP values come from the
+  reported model summaries. Reproduction should confirm input size, fusion
+  policy and operation-counting convention.
+- **No timing claim.** Model-forward latency, full-pipeline latency and website
+  loading time are different measurements; none is established by the GFLOP table.
+- **Completed versus exploratory work.** The tables identify reported evaluations.
+  An available YAML does not establish that its experiment was completed.
+
+## Dataset
+
+The task includes **nine labelled classes**, including **Healthy**.
 
 | Class ID | Label |
 |---:|---|
-| 0 | Rice__BacterialLeafBlight |
-| 1 | Rice__BrownSpot |
-| 2 | Rice__Healthy |
-| 3 | Rice__Hispa |
-| 4 | Rice__LeafBlast |
-| 5 | Rice__LeafScald |
-| 6 | Rice__LeafSmut |
-| 7 | Rice__NarrowBrownLeafSpot |
-| 8 | Rice__NeckBlast |
+| 0 | `Rice__BacterialLeafBlight` |
+| 1 | `Rice__BrownSpot` |
+| 2 | `Rice__Healthy` |
+| 3 | `Rice__Hispa` |
+| 4 | `Rice__LeafBlast` |
+| 5 | `Rice__LeafScald` |
+| 6 | `Rice__LeafSmut` |
+| 7 | `Rice__NarrowBrownLeafSpot` |
+| 8 | `Rice__NeckBlast` |
 
 | Split | Images / label files | Annotated objects |
 |---|---:|---:|
@@ -114,114 +231,184 @@ Example images are available from the [Rice Leaf Diseases dataset on Kaggle](htt
 | Test | 803 | 2,466 |
 | **Total** | **7,952** | **25,190** |
 
-Arrange each split under `datasets/rice_yolo_split/images/` and `datasets/rice_yolo_split/labels/`, using `train`, `val` and `test` subfolders. Each image must have its corresponding YOLO `.txt` annotation. Class IDs must match the table above.
+Example source images are available from the
+[Rice Leaf Diseases dataset on Kaggle](https://www.kaggle.com/datasets/yusufmurtaza01/rice-leaf-diseases).
+Reproducing the reported **detection** results also requires the same bounding-box
+annotations and split assignments. Downloading source images alone is insufficient.
 
-Edit **only the dataset `path:` entry** in [`data/paddy.yaml`](data/paddy.yaml) to point to your local `rice_yolo_split` folder. The committed configuration currently contains the author's Windows path, which must be changed on another machine. Dataset images and trained `.pt` weights are not supplied as part of the research source upload.
+<details>
+<summary><strong>Expected local dataset layout</strong></summary>
 
-## Repository Guide
+```text
+datasets/rice_yolo_split/
+├── images/
+│   ├── train/
+│   ├── val/
+│   └── test/
+└── labels/
+    ├── train/
+    ├── val/
+    └── test/
+```
 
-| Path | Purpose |
-|---|---|
-| `cfg/training/` | Baseline, proposed, ablation and exploratory architecture configurations |
-| `data/paddy.yaml` | Dataset locations and disease labels |
-| `ultralytics/` | Customized Ultralytics implementation used by the research models |
-| `train.py` | Training entry point |
-| `test.py` | Validation/test evaluation entry point |
-| `detect.py` | Local predictions and saved annotations |
-| `audit.py` | Filename-versus-label consistency inspection; edit its dataset root before use |
-| `PaddyLiteX_HF_Static/` | Static website, evaluation data and browser ONNX assets |
-| `requirements.txt` | Python research/runtime dependencies |
-| `assets/paddylitex-banner.svg` | Repository branding |
+Each image needs a corresponding YOLO `.txt` label file, with class IDs matching
+the table. Edit only the dataset `path:` in [data/paddy.yaml](data/paddy.yaml) to
+point to this folder. The supplied configuration contains the author's Windows
+path, which must be changed on another machine. Dataset images and trained `.pt`
+weights are not included in the research source upload.
 
-Exploratory YAMLs represent available configurations, not evidence that every trial was completed. The tables above identify the reported evaluations.
+</details>
 
-## Run the Research Code Locally
+## Quick start
 
-Clone the repository and work from its root:
+### 1. Clone and prepare the environment
 
 ```powershell
 git clone https://github.com/WAYTECHG/paddylitex-disease-detection.git
 cd paddylitex-disease-detection
 ```
 
-Use the existing `paddy_yolo` environment if available. For a separate setup, create a Python 3.11 environment:
+Reuse the existing `paddy_yolo` environment if available. Otherwise, the following
+is an **example Python 3.11 / CUDA 12.1 setup**, not a recovered lockfile of the
+original training environment. The version badges refer to this example.
 
 ```powershell
 conda create -n paddylitex python=3.11 -y
 conda activate paddylitex
 $env:PYTHONNOUSERSITE = "1"
-```
 
-Install a matching PyTorch/torchvision build for your hardware first. One published CUDA 12.1 option for Windows/Linux is:
-
-```powershell
 python -m pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121
 python -m pip install -r requirements.txt
 python -m pip check
 ```
 
-Use the [official PyTorch installation instructions](https://pytorch.org/get-started/locally/) for another CUDA/driver combination. Keep a working training environment's original torch/torchvision versions when possible. The dependency ranges are a setup starting point, not a verified lockfile of the original training environment.
+For different hardware, use the [official PyTorch installation selector](https://pytorch.org/get-started/locally/).
+Preserve the versions in an already working research environment where possible.
 
-The requirements passed a dependency-resolution dry run for CPython 3.11 on Windows x86-64, using Windows environment markers, on 12 October 2026. This check did not install the packages or execute training/inference; verify both locally with the actual checkpoints.
-
-Verify that Python uses this repository's custom package:
+Verify that Python loads the repository's customized Ultralytics package:
 
 ```powershell
 python -c "import torch, ultralytics; print('Ultralytics:', ultralytics.__file__); print('CUDA:', torch.cuda.is_available())"
 ```
 
-The Ultralytics path should point inside the cloned repository. Do not replace the custom package with an unrelated pip installation. Run the scripts from the repository root. For GPU training use `--device 0`; for CPU execution use `--device cpu`.
+The package path should resolve inside this clone. Run commands from the repository
+root and retain the custom modules rather than substituting an unrelated pip
+Ultralytics installation. Use `--device 0` for a supported GPU or `--device cpu`.
 
-### Train the Three Main Models
+### 2. Train the proposed model
 
-These are example commands using 300 epochs, 640-pixel inputs and seed 42. Use the original experiment settings/run records for exact reproduction; batch size, early stopping and other training settings also affect results.
+Configure [data/paddy.yaml](data/paddy.yaml) first. This command illustrates
+**300 epochs, 640-pixel inputs and seed 42**; consult the original run records
+for exact reproduction, including batch size, early stopping and other settings.
+
+```powershell
+python train.py --model cfg/training/yolov8n_denselitex_sppf_c2psa.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 4 --device 0 --seed 42 --name yolov8n_denselitex_sppf_c2psa
+```
+
+<details>
+<summary><strong>Train the two baselines</strong></summary>
 
 ```powershell
 python train.py --model cfg/training/yolov8n.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 4 --device 0 --seed 42 --name yolov8n
 
 python train.py --model cfg/training/yolov8n_densenet121.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 4 --device 0 --seed 42 --name yolov8n_densenet121
-
-python train.py --model cfg/training/yolov8n_denselitex_sppf_c2psa.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 4 --device 0 --seed 42 --name yolov8n_denselitex_sppf_c2psa
 ```
 
-The examples initialize from architecture YAMLs without the `--pretrained` flag. Keep training settings consistent when comparing architectures. For an ablation, substitute its YAML path and give it a distinct run name.
+The examples initialize from architecture YAMLs without `--pretrained`. Keep
+settings consistent across comparisons. For an ablation, substitute its YAML
+and choose a distinct run name.
 
-### Evaluate a Trained Checkpoint
+</details>
+
+### 3. Evaluate and predict
 
 ```powershell
 python test.py --weights runs/train/yolov8n_denselitex_sppf_c2psa/weights/best.pt --data data/paddy.yaml --split test --imgsz 640 --batch 1 --workers 4 --device 0 --name yolov8n_denselitex_sppf_c2psa
-```
 
-Use the actual checkpoint path printed by training; existing experiment folders may cause Ultralytics to append a number to the run name. The scripts' default dataset filename differs from the committed `paddy.yaml`, so explicitly pass `--data data/paddy.yaml`.
-
-### Run Local Detection
-
-```powershell
 python detect.py --weights runs/train/yolov8n_denselitex_sppf_c2psa/weights/best.pt --source datasets/rice_yolo_split/images/test --imgsz 640 --conf 0.25 --device 0 --name proposed_demo
 ```
 
-The optional `benchmark_inference.py` supplied with the project measures GPU model-forward latency; add it to the repository before running it. Keep its results separate from website loading time and full detection-pipeline latency.
+Use the actual checkpoint path printed by training: an existing run directory
+can cause a numbered suffix. Always pass `--data data/paddy.yaml` to evaluation,
+because the script's default dataset filename differs from the committed file.
 
-## Interactive Demo
+<details>
+<summary><strong>Reproduction and environment notes</strong></summary>
 
-The public demo allows visitors to upload one image and compare **Baseline 1, Baseline 2 and the proposed model**. It includes annotated predictions, aggregate metric charts, adjustable performance–complexity scatter plots, class-level comparisons and ablation results.
+The supplied README records a dependency-resolution dry run for CPython 3.11 on
+Windows x86-64 on **12 October 2026**. It did not install dependencies or execute
+training/inference. A resolver check is not an end-to-end reproduction.
 
-The current static demo executes exported ONNX models **in the visitor's browser** through ONNX Runtime Web. Python research dependencies are not required to serve the static site. The `.pt` files are used by the research workflow; changing charts does not replace the ONNX detection models.
+The optional `benchmark_inference.py` described in the research materials measures
+GPU model-forward latency. Add that file to the repository before attempting to
+run it, and keep its measurements separate from end-to-end detection latency.
+No timing numbers are added to the reported results here.
 
-Run the static demo locally:
+</details>
+
+## Interactive demo
+
+**[Open Render](https://paddylitex.onrender.com/)** ·
+**[Open Hugging Face](https://huggingface.co/spaces/Wizzas/PaddyLiteX)**
+
+The static comparison application runs exported ONNX models **in the visitor's
+browser** through ONNX Runtime Web. It supports same-image predictions from
+Baseline 1, Baseline 2 and the proposed model, with annotated detections,
+aggregate charts, performance–complexity plots, class-level comparisons and
+ablation results.
+
+| Research workflow | Browser demonstration |
+|---|---|
+| Customized Python / Ultralytics implementation | Static HTML, JavaScript and ONNX Runtime Web |
+| Train and evaluate `.pt` checkpoints | Execute exported ONNX models |
+| Requires the matching dataset, annotations and environment | Requires the exported models and runtime assets |
+| Produces the reported evaluation metrics | Displays predictions and previously measured results |
+
+Serve the existing static website locally:
 
 ```powershell
 python -m http.server 8000 --directory PaddyLiteX_HF_Static
 ```
 
-Open **http://localhost:8000**. Model assets/runtime downloads must be available for detection. The live sites are demonstration tools; uploaded predictions require interpretation and do not measure image-level mAP.
+Open **http://localhost:8000**. Python research dependencies are unnecessary for
+serving the static files; model/runtime assets must still be available for
+detection. Updating chart data does not replace an ONNX model. A single uploaded
+image produces predictions, not a new measurement of dataset-level mAP.
 
-## Author and Acknowledgments
+## Repository guide
 
-**Wilbert Andrew Yonathan** · Xiamen University Malaysia
+| Path | Purpose |
+|---|---|
+| [cfg/training/](cfg/training/) | Baseline, proposed, ablation and exploratory model YAMLs |
+| [ultralytics/](ultralytics/) | Customized framework and dense-backbone implementation |
+| [data/paddy.yaml](data/paddy.yaml) | Dataset root and class labels |
+| [train.py](train.py) | Training entry point |
+| [test.py](test.py) | Validation/test evaluation entry point |
+| [detect.py](detect.py) | Local predictions and saved annotations |
+| [audit.py](audit.py) | Filename/label consistency inspection; configure its local dataset root |
+| [PaddyLiteX_HF_Static/](PaddyLiteX_HF_Static/) | Static demo, evaluation data and browser ONNX assets |
+| [requirements.txt](requirements.txt) | Research/runtime dependency definitions |
+| [assets/](assets/) | README banner and three architecture diagrams |
 
-My contributions include the custom DenseNet-based detector integration, DenseLiteX configuration, SPPF/C2PSA experiments, model evaluation and the PaddyLiteX comparison demo. The project builds on [Ultralytics YOLO](https://github.com/ultralytics/ultralytics), the [DenseNet architecture](https://arxiv.org/abs/1608.06993) and [ONNX Runtime Web](https://onnxruntime.ai/docs/tutorials/web/). Existing upstream modules remain credited to their original authors.
+## Author and acknowledgments
+
+**Wilbert Andrew Yonathan** · Xiamen University Malaysia  
+Bachelor of Engineering in Artificial Intelligence · Final Year Thesis
+
+Project contributions include the custom DenseNet-based detector integration,
+DenseLiteX configuration, SPPF/C2PSA experiments, evaluation and comparison demo.
+The work builds on [Ultralytics YOLO](https://github.com/ultralytics/ultralytics),
+[DenseNet](https://arxiv.org/abs/1608.06993) and
+[ONNX Runtime Web](https://onnxruntime.ai/docs/tutorials/web/).
+Upstream modules remain credited to their original authors.
 
 ## Licensing
 
-The repository contains the author's [MIT licence](LICENSE). Bundled Ultralytics code retains its upstream **AGPL-3.0** terms, included in [LICENSE-ULTRALYTICS](LICENSE-ULTRALYTICS); the root MIT file does not relicense third-party code. Preserve the applicable upstream notices when redistributing the implementation. Dataset terms apply separately to images and annotations.
+See the author's [MIT license](LICENSE) and the bundled
+[Ultralytics AGPL-3.0 license](LICENSE-ULTRALYTICS). The root MIT license does not
+relicense upstream code. Preserve third-party notices; dataset terms apply
+separately to images and annotations.
+
+---
+
+<p align="center"><strong>PaddyLiteX</strong><br />Dense feature reuse. Measured trade-offs. Reproducible research.</p>
