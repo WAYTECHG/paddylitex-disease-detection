@@ -4,10 +4,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from .ema import EMA
-from .lsk import LSKblock
-
-
 def _init_weights(module: nn.Module) -> None:
     """Kaiming initialization for convolutions and standard BN init."""
     if isinstance(module, nn.Conv2d):
@@ -17,23 +13,6 @@ def _init_weights(module: nn.Module) -> None:
     elif isinstance(module, nn.BatchNorm2d):
         nn.init.ones_(module.weight)
         nn.init.zeros_(module.bias)
-
-class RefinementStage(nn.Module):
-  """Applies official LSK and/or EMA refinement modules to feature maps."""
-
-  def __init__(
-      self, channels: int, use_lsk: bool = False, use_ema: bool = False
-  ):
-    super().__init__()
-    layers = []
-    if use_lsk:
-      layers.append(LSKblock(channels))
-    if use_ema:
-      layers.append(EMA(channels))
-    self.refiner = nn.Sequential(*layers) if layers else nn.Identity()
-
-  def forward(self, x: torch.Tensor) -> torch.Tensor:
-    return self.refiner(x)
 
 class _DenseLayer(nn.Module):
     """DenseNet bottleneck layer."""
@@ -111,12 +90,6 @@ class _Transition(nn.Module):
 
 
 class DenseNetBackbone(nn.Module):
-    """
-    Unified DenseNet Backbone with Boolean Toggles for:
-    - use_lsk: Enables LSK spatial attention
-    - use_ema: Enables EMA channel attention
-    """
-
     def __init__(
         self,
         growth_rate: int | list[int] | tuple[int, ...] = 20,
@@ -126,8 +99,6 @@ class DenseNetBackbone(nn.Module):
         p3_channels: int = 64,
         p4_channels: int = 128,
         p5_channels: int = 256,
-        use_lsk: bool = False,
-        use_ema: bool = False,
     ) -> None:
         super().__init__()
 
@@ -176,12 +147,6 @@ class DenseNetBackbone(nn.Module):
         self.p3_conv = nn.Conv2d(c2_in, p3_channels, kernel_size=1, bias=False)
         self.p4_conv = nn.Conv2d(c3_in, p4_channels, kernel_size=1, bias=False)
         self.p5_conv = nn.Conv2d(c4, p5_channels, kernel_size=1, bias=False)
-
-        # Refinement Modules (LSK, EMA, or both)
-        self.p3_refiner = RefinementStage(p3_channels, use_lsk=use_lsk, use_ema=use_ema)
-        self.p4_refiner = RefinementStage(p4_channels, use_lsk=use_lsk, use_ema=use_ema)
-        self.p5_refiner = RefinementStage(p5_channels, use_lsk=use_lsk, use_ema=use_ema)
-
         self.out_channels = [p3_channels, p4_channels, p5_channels]
         self.apply(_init_weights)
 
@@ -200,10 +165,5 @@ class DenseNetBackbone(nn.Module):
         x = self.trans3(x)
         x = self.block4(x)
         p5 = self.p5_conv(x)
-
-        # Apply spatial/channel refinements
-        p3 = self.p3_refiner(p3)
-        p4 = self.p4_refiner(p4)
-        p5 = self.p5_refiner(p5)
 
         return [p3, p4, p5]
