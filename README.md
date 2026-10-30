@@ -43,14 +43,14 @@ for comparing predictions on the same uploaded image.
 
 | Architecture research | Measured comparison | Interactive application |
 |---|---|---|
-| Reduced dense-block depth, growth rate and bottleneck expansion | Precision, recall, mAP, parameters and GFLOPs | Baseline and proposed predictions on one image |
-| DenseLiteX with SPPF and C2PSA refinement | Two baselines and two component-ablation groups | Annotated boxes, metric charts and class-level comparisons |
+| Reduced dense-block depth, growth rate and bottleneck expansion | Precision, recall, mAP, parameters and GFLOPs | Baseline, initial proposed and final proposed predictions on one image |
+| DenseLiteX with SPPF and C2PSA refinement | Baseline, initial proposed model and two component-ablation groups | Annotated boxes, metric charts and class-level comparisons |
 | P3, P4 and P5 features for three-scale detection | 803 test images and 2,466 annotated objects | Exported ONNX models executed in the browser |
 
-> **The central result:** compared with the evaluated DenseNet121 baseline, the
-> proposed detector uses **68.01% fewer parameters** and **72.59% lower reported
+> **The central result:** compared with the initial proposed YOLOv8n + DenseNet121 model, the
+> final proposed detector uses **68.01% fewer parameters** and **72.59% lower reported
 > GFLOPs**, with **0.98 percentage points higher mAP@0.5**. This is a measured
-> trade-off: it does not outperform every baseline on every metric.
+> trade-off: it does not outperform every reference model on every metric.
 
 ## Architecture
 
@@ -103,10 +103,10 @@ custom modules define the executable implementation.*
 **Implementation:** [custom dense modules](ultralytics/nn/modules/densenet.py) ·
 [proposed model YAML](cfg/training/yolov8n_denselitex_sppf_c2psa.yaml).
 
-### Baseline architectures
+### Baseline and initial proposed architectures
 
 <details>
-<summary><strong>Baseline 1 — YOLOv8n</strong> · expand architecture</summary>
+<summary><strong>Baseline — YOLOv8n</strong> · expand architecture</summary>
 
 The original YOLOv8n detector provides the reference for a compact, conventional
 backbone with its feature pyramid and three-scale detection head.
@@ -118,7 +118,7 @@ backbone with its feature pyramid and three-scale detection head.
 </details>
 
 <details>
-<summary><strong>Baseline 2 — YOLOv8n + DenseNet121</strong> · expand architecture</summary>
+<summary><strong>Initial proposed — YOLOv8n + DenseNet121</strong> · expand architecture</summary>
 
 This integration uses dense blocks **[6, 12, 24, 16]** and growth rate **32**.
 Projected P3/P4/P5 features feed the detection neck. Its larger backbone provides
@@ -144,16 +144,16 @@ and GFLOPs indicate lower reported model complexity.
 
 | Model | Precision (%) | Recall (%) | mAP@0.5 (%) | mAP@0.5:0.95 (%) | Parameters | GFLOPs |
 |---|---:|---:|---:|---:|---:|---:|
-| YOLOv8n · Baseline 1 | 83.68 | **76.61** | 80.79 | 54.66 | 3,007,403 | **8.1** |
-| YOLOv8n + DenseNet121 · Baseline 2 | **84.71** | 74.79 | 80.69 | **56.08** | 9,002,123 | 51.8 |
-| **DenseLiteX + SPPF + C2PSA · Proposed** | 83.29 | 75.67 | **81.67** | 55.83 | **2,879,917** | 14.2 |
+| YOLOv8n · Baseline | 83.68 | **76.61** | 80.79 | 54.66 | 3,007,403 | **8.1** |
+| YOLOv8n + DenseNet121 · Initial proposed | **84.71** | 74.79 | 80.69 | **56.08** | 9,002,123 | 51.8 |
+| **DenseLiteX + SPPF + C2PSA (PaddyLiteX) · Final proposed** | 83.29 | 75.67 | **81.67** | 55.83 | **2,879,917** | 14.2 |
 
 ### What the comparison shows
 
-| Proposed model compared with | mAP@0.5 | mAP@0.5:0.95 | Parameters | Reported GFLOPs |
+| Final proposed model compared with | mAP@0.5 | mAP@0.5:0.95 | Parameters | Reported GFLOPs |
 |---|---:|---:|---:|---:|
 | YOLOv8n baseline | +0.88 pp | +1.17 pp | 4.24% fewer | 75.31% higher |
-| DenseNet121 baseline | +0.98 pp | −0.25 pp | 68.01% fewer | 72.59% lower |
+| Initial proposed (DenseNet121) | +0.98 pp | −0.25 pp | 68.01% fewer | 72.59% lower |
 
 The proposed model offers lower complexity than the DenseNet121 integration.
 Against the original YOLOv8n, it has slightly fewer parameters and higher mAP,
@@ -306,7 +306,7 @@ python train.py --model cfg/training/yolov8n_denselitex_sppf_c2psa.yaml --data d
 ```
 
 <details>
-<summary><strong>Train the two baselines</strong></summary>
+<summary><strong>Train the baseline and initial proposed model</strong></summary>
 
 ```powershell
 python train.py --model cfg/training/yolov8n.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 4 --device 0 --seed 42 --name yolov8n
@@ -353,7 +353,7 @@ No timing numbers are added to the reported results here.
 
 The static comparison application runs exported ONNX models **in the visitor's
 browser** through ONNX Runtime Web. It supports same-image predictions from
-Baseline 1, Baseline 2 and the proposed model, with annotated detections,
+the baseline, the initial proposed model and the final proposed model, with annotated detections,
 aggregate charts, performance–complexity plots, class-level comparisons and
 ablation results.
 
