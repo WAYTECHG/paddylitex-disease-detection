@@ -9,7 +9,7 @@
   <a href="https://huggingface.co/spaces/Wizzas/PaddyLiteX"><img src="https://img.shields.io/badge/Interactive_demo-Hugging_Face-E4BB59?style=for-the-badge&amp;logo=huggingface&amp;logoColor=192F27" alt="PaddyLiteX on Hugging Face" /></a>
   <img src="https://img.shields.io/badge/Research-Final_Year_Thesis-325D4C?style=for-the-badge" alt="Final year thesis research" />
   <br />
-  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Example setup: Python 3.11" />
+  <img src="https://img.shields.io/badge/Python-3.10-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white" alt="Example setup: Python 3.10" />
   <img src="https://img.shields.io/badge/PyTorch-2.5.1-EE4C2C?style=flat-square&amp;logo=pytorch&amp;logoColor=white" alt="Example setup: PyTorch 2.5.1" />
   <img src="https://img.shields.io/badge/YOLO-v8n-5365D9?style=flat-square" alt="YOLOv8n-based detector" />
   <img src="https://img.shields.io/badge/Backbone-DenseLiteX-17634B?style=flat-square" alt="Custom DenseLiteX backbone" />
@@ -144,7 +144,7 @@ and GFLOPs indicate lower reported model complexity.
 
 | Model | Precision (%) | Recall (%) | mAP@0.5 (%) | mAP@0.5:0.95 (%) | Parameters | GFLOPs |
 |---|---:|---:|---:|---:|---:|---:|
-| YOLOv8n · Baseline | 83.68 | **76.61** | 80.79 | 54.66 | 3,007,403 | **8.1** |
+| YOLOv8n · Baseline | 81.24 | **78.45** | 80.94 | 54.72 | 3,007,403 | **8.1** |
 | YOLOv8n + DenseNet121 · Initial proposed | **84.71** | 74.79 | 80.69 | **56.08** | 9,002,123 | 51.8 |
 | **DenseLiteX + SPPF + C2PSA (PaddyLiteX) · Final proposed** | 83.29 | 75.67 | **81.67** | 55.83 | **2,879,917** | 14.2 |
 
@@ -152,12 +152,12 @@ and GFLOPs indicate lower reported model complexity.
 
 | Final proposed model compared with | mAP@0.5 | mAP@0.5:0.95 | Parameters | Reported GFLOPs |
 |---|---:|---:|---:|---:|
-| YOLOv8n baseline | +0.88 pp | +1.17 pp | 4.24% fewer | 75.31% higher |
+| YOLOv8n baseline | +0.73 pp | +1.11 pp | 4.24% fewer | 75.31% higher |
 | Initial proposed (DenseNet121) | +0.98 pp | −0.25 pp | 68.01% fewer | 72.59% lower |
 
 The proposed model offers lower complexity than the DenseNet121 integration.
 Against the original YOLOv8n, it has slightly fewer parameters and higher mAP,
-but **higher GFLOPs**, slightly lower precision and slightly lower recall.
+but **higher GFLOPs**, lower recall (75.67% vs 78.45%), though higher precision (83.29% vs 81.24%).
 GFLOPs do not establish wall-clock inference speed; no measured latency or FPS
 advantage is claimed here.
 
@@ -226,10 +226,10 @@ The task includes **nine labelled classes**, including **Healthy**.
 
 | Split | Images / label files | Annotated objects |
 |---|---:|---:|
-| Training | 5,562 | 17,445 |
+| Training | 5,567 | 17,451 |
 | Validation | 1,587 | 5,279 |
 | Test | 803 | 2,466 |
-| **Total** | **7,952** | **25,190** |
+| **Total** | **7,957** | **25,196** |
 
 Example source images are available from the
 [Rice Leaf Diseases dataset on Kaggle](https://www.kaggle.com/datasets/yusufmurtaza01/rice-leaf-diseases).
@@ -269,11 +269,11 @@ cd paddylitex-disease-detection
 ```
 
 Reuse the existing `paddy_yolo` environment if available. Otherwise, the following
-is an **example Python 3.11 / CUDA 12.1 setup**, not a recovered lockfile of the
+is an **example Python 3.10 / CUDA 12.1 setup**, not a recovered lockfile of the
 original training environment. The version badges refer to this example.
 
 ```powershell
-conda create -n paddylitex python=3.11 -y
+conda create -n paddylitex python=3.10 -y
 conda activate paddylitex
 $env:PYTHONNOUSERSITE = "1"
 
@@ -298,20 +298,20 @@ Ultralytics installation. Use `--device 0` for a supported GPU or `--device cpu`
 ### 2. Train the proposed model
 
 Configure [data/paddy.yaml](data/paddy.yaml) first. This command illustrates
-**300 epochs, 640-pixel inputs and seed 42**; consult the original run records
-for exact reproduction, including batch size, early stopping and other settings.
+**300 epochs, 640-pixel inputs, batch size 8, seed 42 and early stopping disabled**
+(`--patience 0`). Other settings follow the thesis training set-up.
 
 ```powershell
-python train.py --model cfg/training/yolov8n_denselitex_sppf_c2psa.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 4 --device 0 --seed 42 --name yolov8n_denselitex_sppf_c2psa
+python train.py --model cfg/training/yolov8n_denselitex_sppf_c2psa.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 8 --device 0 --seed 42 --patience 0 --name yolov8n_denselitex_sppf_c2psa
 ```
 
 <details>
 <summary><strong>Train the baseline and initial proposed model</strong></summary>
 
 ```powershell
-python train.py --model cfg/training/yolov8n.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 4 --device 0 --seed 42 --name yolov8n
+python train.py --model cfg/training/yolov8n.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 8 --device 0 --seed 42 --patience 0 --name yolov8n
 
-python train.py --model cfg/training/yolov8n_densenet121.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 4 --device 0 --seed 42 --name yolov8n_densenet121
+python train.py --model cfg/training/yolov8n_densenet121.yaml --data data/paddy.yaml --epochs 300 --imgsz 640 --batch 8 --device 0 --seed 42 --patience 0 --name yolov8n_densenet121
 ```
 
 The examples initialize from architecture YAMLs without `--pretrained`. Keep

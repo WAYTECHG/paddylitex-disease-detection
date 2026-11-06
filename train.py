@@ -27,8 +27,8 @@ def parse_args():
                         help="Folder to save training results.")
     parser.add_argument("--name", type=str, default="yolov8n_scratch_paddy",
                         help="Experiment name.")
-    parser.add_argument("--patience", type=int, default=100,
-                        help="Early stopping patience.")
+    parser.add_argument("--patience", type=int, default=0,
+                        help="Early stopping patience (0 disables early stopping).")
     parser.add_argument("--seed", type=int, default=42,
                         help="Random seed.")
     parser.add_argument("--resume", action="store_true",
