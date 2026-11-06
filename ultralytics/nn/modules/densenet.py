@@ -14,6 +14,22 @@ def _init_weights(module: nn.Module) -> None:
         nn.init.ones_(module.weight)
         nn.init.zeros_(module.bias)
 
+class RefinementStage(nn.Module):
+    """Backward-compatibility stub.
+
+    Checkpoints trained before the 29 Oct 2026 cleanup pickled this class (an optional
+    LSK/EMA refinement that was disabled for every reported model, so it was an
+    identity with no parameters). The class is kept only so those .pt files still load.
+    The current DenseNetBackbone does not use it."""
+
+    def __init__(self, channels: int = 0, use_lsk: bool = False, use_ema: bool = False) -> None:
+        super().__init__()
+        self.refiner = nn.Identity()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return x
+
+
 class _DenseLayer(nn.Module):
     """DenseNet bottleneck layer."""
 
