@@ -408,7 +408,7 @@ image produces predictions, not a new measurement of dataset-level mAP.
 
 | Path | Purpose |
 |---|---|
-| [cfg/training/](cfg/training/) | Baseline, proposed, ablation and exploratory model YAMLs |
+| [cfg/training/](cfg/training/) | Baseline, proposed, ablation and DenseLiteX exploration-trial model YAMLs |
 | [ultralytics/](ultralytics/) | Customized framework and dense-backbone implementation |
 | [data/paddy.yaml](data/paddy.yaml) | Dataset root and class labels |
 | [train.py](train.py) | Training entry point |
@@ -418,6 +418,23 @@ image produces predictions, not a new measurement of dataset-level mAP.
 | [PaddyLiteX_HF_Static/](PaddyLiteX_HF_Static/) | Static demo, evaluation data and browser ONNX assets |
 | [requirements.txt](requirements.txt) | Research/runtime dependency definitions |
 | [assets/](assets/) | README banner and three architecture diagrams |
+
+### DenseLiteX exploration trials
+
+Five backbone settings were tried while developing DenseLiteX (thesis Table 4.8). The selected one is
+E03, which is the configuration of `yolov8n_denselitex.yaml` and has no separate `E03` file. The other
+four have their own YAMLs. Each trial was trained once (300 epochs, batch size 8, seed 42, no early
+stopping), and the selection used validation results and model complexity, not the testing subset.
+
+| Trial | Dense blocks | Bottleneck factor | Growth rate | Config file |
+|---|---|---:|---:|---|
+| E01 | 6, 12, 24, 16 | 4 | 20 | `E01_yolov8n_dense_b6_12_24_16_bn4.yaml` |
+| E02 | 6, 8, 12, 6 | 4 | 20 | `E02_yolov8n_dense_b6_8_12_6_bn4.yaml` |
+| **E03 (selected)** | 6, 8, 12, 6 | 2 | 20 | `yolov8n_denselitex.yaml` |
+| E04 | 6, 8, 12, 6 | 1 | 20 | `E04_yolov8n_dense_b6_8_12_6_bn1.yaml` |
+| E05 | 4, 6, 8, 4 | 2 | 20 | `E05_yolov8n_dense_b4_6_8_4_bn2.yaml` |
+
+The trials are not part of the nine reported architectures, and no result in this README depends on them.
 
 ## Author and acknowledgments
 
