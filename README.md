@@ -254,8 +254,8 @@ datasets/rice_yolo_split/
 Each image needs a corresponding YOLO `.txt` label file, with class IDs matching
 the table. Edit only the dataset `path:` in [data/paddy.yaml](data/paddy.yaml) to
 point to this folder. The supplied configuration contains the author's Windows
-path, which must be changed on another machine. Dataset images and trained `.pt`
-weights are not included in the research source upload.
+path, which must be changed on another machine. Dataset images are not included in
+this repository. Trained weights are published separately (see [Trained weights](#trained-weights)).
 
 </details>
 
@@ -331,6 +331,35 @@ python detect.py --weights runs/train/yolov8n_denselitex_sppf_c2psa/weights/best
 Use the actual checkpoint path printed by training: an existing run directory
 can cause a numbered suffix. Always pass `--data data/paddy.yaml` to evaluation,
 because the script's default dataset filename differs from the committed file.
+
+### Trained weights
+
+The `best.pt` checkpoint and `results.csv` training log of each of the nine architectures in the
+thesis are attached to the [v1.0 release](https://github.com/WAYTECHG/paddylitex-disease-detection/releases/tag/v1.0).
+Each model was trained from scratch for 300 epochs (batch size 8, seed 42, early stopping disabled),
+one run per architecture.
+
+| Release file | Architecture |
+|---|---|
+| `yolov8n.pt` | YOLOv8n baseline |
+| `yolov8n_densenet121.pt` | YOLOv8n + DenseNet121 (initial proposed) |
+| `yolov8n_densenet121_sppf.pt`, `..._c2psa.pt`, `..._sppf_c2psa.pt` | DenseNet121 with SPPF, C2PSA, or both |
+| `yolov8n_denselitex.pt` | DenseLiteX backbone only |
+| `yolov8n_denselitex_sppf.pt`, `..._c2psa.pt` | DenseLiteX with SPPF or C2PSA |
+| `yolov8n_denselitex_sppf_c2psa.pt` | **PaddyLiteX (final proposed)** |
+
+These checkpoints load only with the customized `ultralytics/` folder in this repository, because
+they contain the custom dense-backbone classes. Run from the repository root so Python imports the
+local copy; the pip `ultralytics` package cannot read them.
+
+```powershell
+python -c "import ultralytics; print(ultralytics.__file__)"   # must print a path inside this repository
+python test.py --weights yolov8n_denselitex_sppf_c2psa.pt --data data/paddy.yaml --split test --imgsz 640 --batch 1 --device 0 --name verify_proposed
+```
+
+The proposed model should report precision 0.8329, recall 0.7567, mAP50 0.8167 and mAP50-95 0.5583
+(2,879,917 parameters, 14.2 GFLOPs) on the 803-image test subset. Parameter counts are those of the
+fused model, as printed by the Ultralytics summary.
 
 <details>
 <summary><strong>Reproduction and environment notes</strong></summary>
