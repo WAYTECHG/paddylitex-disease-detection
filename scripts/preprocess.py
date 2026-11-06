@@ -10,7 +10,7 @@ from collections import defaultdict, Counter
 # CONFIG
 # ============================================================
 
-PROJECT_ROOT = Path(r"C:\Users\User\Documents\Thesis_Code")
+PROJECT_ROOT = Path(__file__).resolve().parent.parent  # repository root
 
 # Earliest available public export
 SRC_ROOT = PROJECT_ROOT / "rice" / "rice"

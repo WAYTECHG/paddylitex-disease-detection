@@ -252,10 +252,9 @@ datasets/rice_yolo_split/
 ```
 
 Each image needs a corresponding YOLO `.txt` label file, with class IDs matching
-the table. Edit only the dataset `path:` in [data/paddy.yaml](data/paddy.yaml) to
-point to this folder. The supplied configuration contains the author's Windows
-path, which must be changed on another machine. Dataset images are not included in
-this repository. Trained weights are published separately (see [Trained weights](#trained-weights)).
+the table. [data/paddy.yaml](data/paddy.yaml) uses the relative path
+`datasets/rice_yolo_split`, so run the scripts from the repository root, or edit that
+`path:` line to point elsewhere. Dataset images are not included in this repository. Trained weights are published separately (see [Trained weights](#trained-weights)).
 
 </details>
 
@@ -329,8 +328,7 @@ python detect.py --weights runs/train/yolov8n_denselitex_sppf_c2psa/weights/best
 ```
 
 Use the actual checkpoint path printed by training: an existing run directory
-can cause a numbered suffix. Always pass `--data data/paddy.yaml` to evaluation,
-because the script's default dataset filename differs from the committed file.
+can cause a numbered suffix. `train.py` and `test.py` use `data/paddy.yaml` by default.
 
 ### Trained weights
 
@@ -367,11 +365,6 @@ fused model, as printed by the Ultralytics summary.
 The supplied README records a dependency-resolution dry run for CPython 3.11 on
 Windows x86-64 on **12 October 2026**. It did not install dependencies or execute
 training/inference. A resolver check is not an end-to-end reproduction.
-
-The optional `benchmark_inference.py` described in the research materials measures
-GPU model-forward latency. Add that file to the repository before attempting to
-run it, and keep its measurements separate from end-to-end detection latency.
-No timing numbers are added to the reported results here.
 
 </details>
 

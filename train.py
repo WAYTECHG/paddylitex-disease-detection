@@ -11,7 +11,7 @@ def parse_args():
 
     parser.add_argument("--model", type=str, default="cfg/training/yolov8n.yaml",
                         help="Path to model YAML or .pt file.")
-    parser.add_argument("--data", type=str, default="data/rice_leaf_disease.yaml",
+    parser.add_argument("--data", type=str, default="data/paddy.yaml",
                         help="Path to dataset YAML.")
     parser.add_argument("--epochs", type=int, default=300,
                         help="Number of training epochs.")

@@ -11,7 +11,7 @@ def parse_args():
 
     parser.add_argument("--weights", type=str, default="runs/train/yolov8n/weights/best.pt",
                         help="Path to trained model weights.")
-    parser.add_argument("--source", type=str, default="datasets/rice_leaf_disease/images/test",
+    parser.add_argument("--source", type=str, default="datasets/rice_yolo_split/images/test",
                         help="Image, folder, video, or webcam source.")
     parser.add_argument("--imgsz", type=int, default=640,
                         help="Input image size.")

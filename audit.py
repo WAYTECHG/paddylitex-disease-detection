@@ -1,7 +1,7 @@
 from pathlib import Path
 from collections import Counter, defaultdict
 
-root = Path("datasets/rice_leaf_disease")
+root = Path("datasets/rice_yolo_split")
 splits = ["train", "val", "test"]
 
 names = {

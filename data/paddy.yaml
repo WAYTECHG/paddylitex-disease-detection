@@ -1,4 +1,4 @@
-path: C:/Users/User/Documents/Thesis_Code/datasets/rice_yolo_split
+path: datasets/rice_yolo_split
 
 train: images/train
 val: images/val

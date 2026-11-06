@@ -11,7 +11,7 @@ def parse_args():
 
     parser.add_argument("--weights", type=str, default="runs/train/yolov8n/weights/best.pt",
                         help="Path to trained model weights.")
-    parser.add_argument("--data", type=str, default="data/rice_leaf_disease.yaml",
+    parser.add_argument("--data", type=str, default="data/paddy.yaml",
                         help="Path to dataset YAML.")
     parser.add_argument("--split", type=str, default="test", choices=["train", "val", "test"],
                         help="Dataset split to evaluate.")
