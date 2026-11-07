@@ -435,7 +435,8 @@ The trials are not part of the nine reported architectures, and no result in thi
 Bachelor of Engineering in Artificial Intelligence · Final Year Thesis
 
 Project contributions include the custom DenseNet-based detector integration,
-DenseLiteX configuration, SPPF/C2PSA experiments, evaluation and comparison demo.
+DenseLiteX configuration, SPPF/C2PSA experiments and their evaluation. The browser demo is
+included for demonstration only and is not part of the research contribution.
 The work builds on [Ultralytics YOLO](https://github.com/ultralytics/ultralytics),
 [DenseNet](https://arxiv.org/abs/1608.06993) and
 [ONNX Runtime Web](https://onnxruntime.ai/docs/tutorials/web/).
