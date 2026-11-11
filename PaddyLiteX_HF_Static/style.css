@@ -782,6 +782,19 @@ p {
   height: 100%;
   object-fit: contain;
 }
+/* Once an image is chosen, size the box to the whole image instead of cropping it. */
+.dropzone.has-image {
+  height: auto;
+  min-height: 242px;
+  padding: 12px;
+}
+.dropzone.has-image #input-preview {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 520px;
+  border-radius: 10px;
+}
 .fileline {
   display: flex;
   justify-content: space-between;

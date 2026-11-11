@@ -225,6 +225,7 @@ function clearFile() {
   getElement('input-preview').hidden = true;
   getElement('input-preview').removeAttribute('src');
   getElement('upload-hint').hidden = false;
+  getElement('dropzone').classList.remove('has-image');
   getElement('clear').hidden = true;
   getElement('filename').textContent = 'No image selected';
   getElement('message').textContent = '';
@@ -289,6 +290,7 @@ async function selectFile(file) {
   getElement('input-preview').src = previewUrl;
   getElement('input-preview').hidden = false;
   getElement('upload-hint').hidden = true;
+  getElement('dropzone').classList.add('has-image');
   getElement('clear').hidden = false;
   getElement('filename').textContent = `${file.name} · ${(file.size / 1024).toFixed(0)} KB`;
   showEmptyResults();
