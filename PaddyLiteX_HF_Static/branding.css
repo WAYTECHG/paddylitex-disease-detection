@@ -15,7 +15,25 @@
 }
 
 .research-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.15;
   white-space: nowrap;
+}
+
+.researcher-name {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.research-label small {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: var(--muted);
 }
 
 @media (max-width: 1050px) {
