@@ -734,7 +734,7 @@ function renderSummaryCards() {
     for (const { metric, valueId, changeId } of improvements) {
       const scoreGain = proposed[metric] - baseline[metric];
       getElement(valueId).textContent =
-        `${scoreGain >= 0 ? '+' : ''}${scoreGain.toFixed(2)}%`;
+        `${scoreGain >= 0 ? '+' : ''}${scoreGain.toFixed(2)} pp`;
       // C2f x 1 result updates: show signed score differences.
       getElement(valueId).style.color = scoreGain < 0 ? '#b5475a' : '';
       const scoreLabel = getElement(valueId).nextElementSibling;
