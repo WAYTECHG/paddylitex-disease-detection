@@ -64,11 +64,11 @@ SPPF and C2PSA before aggregation.
 
 ```mermaid
 flowchart LR
-    I["Rice leaf image<br/>640 × 640 × 3"] --> B["DenseLiteX backbone<br/>blocks 6 / 8 / 12 / 6 · growth rate 20"]
-    B --> P3["P3 · stride 8<br/>80 × 80 × 64"]
-    B --> P4["P4 · stride 16<br/>40 × 40 × 128"]
-    B --> P5["P5 · stride 32<br/>20 × 20 × 256"]
-    P5 --> S["SPPF"] --> A["C2PSA"]
+    I["Rice leaf image<br/>640 × 640 × 3"] --> B["DenseLiteX backbone<br/>stem (stride 4) · blocks 6 / 8 / 12 / 6<br/>growth rate 20 · bottleneck factor 2"]
+    B --> P3["P3 projection · stride 8<br/>1×1 Conv 92 → 64"]
+    B --> P4["P4 projection · stride 16<br/>1×1 Conv 126 → 128"]
+    B --> P5["P5 projection · stride 32<br/>1×1 Conv 303 → 256"]
+    P5 --> S["SPPF (kernel 5)"] --> A["C2PSA"]
     P3 --> N["YOLOv8 neck<br/>top-down + bottom-up aggregation"]
     P4 --> N
     A --> N
@@ -86,9 +86,27 @@ flowchart LR
 
 <a href="assets/architecture-denselitex.png"><img src="assets/architecture-denselitex.png" alt="Proposed DenseLiteX backbone with four dense blocks, P3/P4/P5 projections, SPPF, C2PSA, YOLOv8 neck and three-scale detection head" width="100%" /></a>
 
-*Proposed architecture supplied with the thesis. Select the image to inspect the
+*Proposed architecture (thesis Figure 3.11). Select the image to inspect the
 full-resolution diagram. Diagrams illustrate the design; the model YAMLs and
 custom modules define the executable implementation.*
+
+<details>
+<summary><strong>Module diagrams</strong> · DenseLiteX backbone, SPPF and C2PSA</summary>
+
+**DenseLiteX backbone** (thesis Figure 3.8): stem, four dense blocks with
+transition layers, and the P3/P4/P5 output projections.
+
+<a href="assets/module-denselitex-backbone.png"><img src="assets/module-denselitex-backbone.png" alt="DenseLiteX backbone with stem, four dense blocks, transition layers and P3/P4/P5 projections" width="100%" /></a>
+
+**SPPF** (thesis Figure 3.9): spatial pyramid pooling (fast) on the deepest feature map.
+
+<a href="assets/module-sppf.png"><img src="assets/module-sppf.png" alt="SPPF module with repeated max-pooling and concatenation" width="100%" /></a>
+
+**C2PSA** (thesis Figure 3.10): attention-based refinement after SPPF.
+
+<a href="assets/module-c2psa.png"><img src="assets/module-c2psa.png" alt="C2PSA module with split, position-sensitive attention blocks and concatenation" width="100%" /></a>
+
+</details>
 
 | Component | Proposed configuration | Purpose |
 |---|---|---|
@@ -108,7 +126,7 @@ custom modules define the executable implementation.*
 <details>
 <summary><strong>Baseline — YOLOv8n</strong> · expand architecture</summary>
 
-The original YOLOv8n detector provides the reference for a compact, conventional
+The original YOLOv8n detector (thesis Figure 3.5) provides the reference for a compact, conventional
 backbone with its feature pyramid and three-scale detection head.
 
 <a href="assets/architecture-yolov8n.png"><img src="assets/architecture-yolov8n.png" alt="Baseline YOLOv8n backbone, SPPF, neck and three-scale detection head" width="100%" /></a>
@@ -120,7 +138,7 @@ backbone with its feature pyramid and three-scale detection head.
 <details>
 <summary><strong>Initial proposed — YOLOv8n + DenseNet121</strong> · expand architecture</summary>
 
-This integration uses dense blocks **[6, 12, 24, 16]** and growth rate **32**.
+This integration (thesis Figure 3.7) uses dense blocks **[6, 12, 24, 16]** and growth rate **32**.
 Projected P3/P4/P5 features feed the detection neck. Its larger backbone provides
 the principal comparison for the proposed reduction in parameters and GFLOPs.
 
