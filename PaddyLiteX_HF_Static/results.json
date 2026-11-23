@@ -87,7 +87,7 @@
         "aggregate_precision_note": "Percent metrics transcribed from the four-decimal Evaluation Summary.",
         "class_precision_note": "Percent metrics transcribed from the three-decimal displayed per-class table.",
         "complexity_note": "Fused model summary: 3,007,403 parameters and 8.1 GFLOPs.",
-        "training_runtime": {
+        "evaluation_runtime": {
           "python": "3.10.20",
           "ultralytics": "8.4.70",
           "torch": "2.5.1+cu121",
