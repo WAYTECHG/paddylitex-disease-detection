@@ -44,7 +44,7 @@ def apply_labels(payload):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--file', type=Path, default=APP_ROOT / 'app/static/per_class.json')
+    parser.add_argument('--file', type=Path, default=APP_ROOT / 'PaddyLiteX_HF_Static' / 'per_class.json')
     args = parser.parse_args()
     try:
         raw = args.file.read_bytes() if args.file.exists() else None

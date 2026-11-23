@@ -276,6 +276,26 @@ the table. [data/paddy.yaml](data/paddy.yaml) uses the relative path
 
 </details>
 
+<details>
+<summary><strong>Re-running the dataset cleaning</strong></summary>
+
+[scripts/preprocess.py](scripts/preprocess.py) reproduces the cleaning procedure of thesis
+Section 4.3.1 from the raw Kaggle export (`rice/rice/images` and `rice/rice/labels`):
+every image is decoded, exact duplicates are found with SHA-256 and removed **before**
+splitting, polygon annotations are converted to YOLO boxes, and the images are split
+70:20:10 by original image with class stratification (seed 42).
+
+```powershell
+python scripts/preprocess.py --source rice/rice --output datasets/rice_yolo_reconstructed_seed42
+```
+
+The cleaning stage gives the thesis counts (8,665 source images, 0 corrupt, 708 duplicates,
+7,957 kept). The subset assignment was re-implemented independently, so it is close to but
+not identical with `datasets/rice_yolo_split`; use that original split to reproduce the
+reported results. The script never overwrites an existing folder.
+
+</details>
+
 ## Quick start
 
 ### 1. Clone and prepare the environment
@@ -426,6 +446,8 @@ image produces predictions, not a new measurement of dataset-level mAP.
 | [test.py](test.py) | Validation/test evaluation entry point |
 | [detect.py](detect.py) | Local predictions and saved annotations |
 | [audit.py](audit.py) | Filename/label consistency inspection; configure its local dataset root |
+| [scripts/preprocess.py](scripts/preprocess.py) | Dataset cleaning, annotation conversion and grouped stratified split (thesis Algorithm 4.1) |
+| [tools/update_class_labels.py](tools/update_class_labels.py) | Refreshes the nine class names in the demo's `per_class.json` without changing scores |
 | [PaddyLiteX_HF_Static/](PaddyLiteX_HF_Static/) | Static demo, evaluation data and browser ONNX assets |
 | [requirements.txt](requirements.txt) | Research/runtime dependency definitions |
 | [assets/](assets/) | README banner and three architecture diagrams |

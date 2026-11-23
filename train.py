@@ -17,8 +17,8 @@ def parse_args():
                         help="Number of training epochs.")
     parser.add_argument("--imgsz", type=int, default=640,
                         help="Input image size.")
-    parser.add_argument("--batch", type=int, default=16,
-                        help="Batch size.")
+    parser.add_argument("--batch", type=int, default=8,
+                        help="Batch size (8 was used for every model in the thesis).")
     parser.add_argument("--workers", type=int, default=4,
                         help="Number of dataloader workers.")
     parser.add_argument("--device", type=str, default="0",

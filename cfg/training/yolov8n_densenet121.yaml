@@ -1,4 +1,4 @@
-  # DenseNet-121 + YOLOv8n baseline for paddy disease detection
+  # YOLOv8n-DenseNet121: initial proposed model for paddy disease detection
   # This model is trained from scratch when loaded from this YAML file.
   #
   # Backbone:
@@ -15,7 +15,7 @@
 
   backbone:
     # [from, repeats, module, args]
-    # args = [growth_rate, block_config, drop_rate, p3_channels, p4_channels, p5_channels]
+    # args = [growth_rate, block_config, bn_size, drop_rate, p3_channels, p4_channels, p5_channels]
     - [-1, 1, DenseNetBackbone, [32, [6, 12, 24, 16], 4, 0.0, 64, 128, 256]]
 
   head:
